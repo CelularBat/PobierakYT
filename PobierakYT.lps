@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="PobierakYT.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="68" Y="16"/>
+        <UsageCount Value="580"/>
+      </Unit>
+      <Unit>
+        <Filename Value="mainform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="Form1"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="MainForm"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="162"/>
+        <CursorPos X="73" Y="133"/>
+        <UsageCount Value="580"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="runexternal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="RunExternal"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="100"/>
+        <CursorPos X="48" Y="51"/>
+        <UsageCount Value="580"/>
+      </Unit>
+      <Unit>
+        <Filename Value="pobierak.engine.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pobierak.Engine"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="18"/>
+        <CursorPos X="54" Y="37"/>
+        <UsageCount Value="580"/>
+      </Unit>
+      <Unit>
+        <Filename Value="pobierak.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="40"/>
+        <CursorPos X="57" Y="44"/>
+        <UsageCount Value="558"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="copyttab.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="copyTTab"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="97"/>
+        <CursorPos X="51" Y="118"/>
+        <UsageCount Value="262"/>
+      </Unit>
+      <Unit>
+        <Filename Value="memothread.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MemoThread"/>
+        <EditorIndex Value="-1"/>
+        <WindowIndex Value="-1"/>
+        <CursorPos X="10" Y="99"/>
+        <UsageCount Value="240"/>
+      </Unit>
+      <Unit>
+        <Filename Value="debugutils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="debugUtils"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="83" Y="9"/>
+        <UsageCount Value="135"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Programy\Lazarus\fpc\3.2.2\source\rtl\objpas\classes\classesh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="717"/>
+        <CursorPos X="15" Y="712"/>
+        <UsageCount Value="71"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Programy\Lazarus\fpc\3.2.2\source\rtl\objpas\classes\stringl.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="305"/>
+        <CursorPos X="65" Y="933"/>
+        <UsageCount Value="71"/>
+      </Unit>
+      <Unit>
+        <Filename Value="mainform.lfm"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="403"/>
+        <CursorPos X="51" Y="14"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\Programy\Lazarus\fpc\3.2.2\source\packages\fcl-base\src\inifiles.pp"/>
+        <UnitName Value="IniFiles"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="236"/>
+        <CursorPos X="28" Y="246"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\prog\AppData\Local\Temp\Temp1_Laz_sample_inifile.zip\Laz_sample_inifile\unit1.pas"/>
+        <UnitName Value="Unit1"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="72"/>
+        <UsageCount Value="9"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="-1"/>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
