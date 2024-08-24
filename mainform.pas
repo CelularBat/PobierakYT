@@ -20,7 +20,6 @@ type
     btnYTBinary: TButton;
     btnClearTabMemo: TButton;
     btnDownload: TButton;
-    btnAddTab: TButton;
     btnGetInfo: TButton;
     bntDebug: TButton;
     btnFormatData: TButton;
@@ -33,10 +32,11 @@ type
     chboxByChapter: TCheckBox;
     chboxSplitChapters: TCheckBox;
     cmbboxQuickQuality: TComboBox;
+    edtFormatNumA: TEdit;
     edtOutputFolder: TEdit;
     edtSubtitlesURL: TEdit;
     edtChapters: TEdit;
-    edtFormatNum: TEdit;
+    edtFormatNumV: TEdit;
     edtCustomArgs: TEdit;
     edtTimeFrom: TEdit;
     edtTimeTo: TEdit;
@@ -54,10 +54,12 @@ type
     Label3: TLabel;
     Label4: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
     Memo1: TMemo;
     OpenDialog1: TOpenDialog;
     PageControl1: TPageControl;
-    PageControl2: TPageControl;
+    PageControlTabs: TPageControl;
     radioQuick: TRadioButton;
     radioAdvanced: TRadioButton;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
@@ -88,9 +90,9 @@ type
     procedure EditVideoURLClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure radioAdvancedChange(Sender: TObject);
-    procedure GroupBox3Click(Sender: TObject);
 
-    function parseAllAdditionalArgs() : string;
+
+    function parseArgs() : string;
     function parseQualitySetting() : string;
     procedure radioQuickChange(Sender: TObject);
     function RunInConsole (var Memo : Tmemo; ARGS: string; out MemoThread : TMemoThr ) : boolean;
@@ -106,9 +108,11 @@ type
 
 
 
-var
-  Form1: TForm1;
+
+
+var  Form1: TForm1;
 var MemoThr : TMemoThr;
+
 
 implementation
 
@@ -122,34 +126,34 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
 
-  Memo1.ScrollBars:=ssAutoBoth;
+  Memo1.ScrollBars:=ssVertical;
 
-  Options := TMySettings.Create();
-  if Options.LoadSettings() then
+  g_PobierakSettings := TMySettings.Create();
+  if g_PobierakSettings.LoadSettings() then
   begin
-    self.edtFFMPGfolder.Text := Options.s_FFMPG_FOLDER;
-    self.edtYtDlpBinary.Text := Options.s_YTdl_PATH;
-    self.edtOutputFolder.Text := Options.s_OutputFolder;
+    self.edtFFMPGfolder.Text := g_PobierakSettings.s_FFMPG_FOLDER;
+    self.edtYtDlpBinary.Text := g_PobierakSettings.s_YTdl_PATH;
+    self.edtOutputFolder.Text := g_PobierakSettings.s_OutputFolder;
   end;
-
-   // TESTING PURPOSE
-  Options.s_YTdl_PATH:= 'E:\_PORTABLE APPS\Videomass-v4.0.1_x86_64-portable\yt-dlp.exe';
-  Options.s_FFMPG_FOLDER := 'E:\_PORTABLE APPS\Videomass-v4.0.1_x86_64-portable\Videomass\FFMPEG\bin';
+    //TESTING PURPOSE
+    EditVideoURL.Text := 'https://www.youtube.com/watch?v=C0DPdy98e4c';
 end;
+
+
 
 function TForm1.RunInConsole (var Memo : Tmemo; ARGS: string; out MemoThread : TMemoThr ) : boolean;
 begin
-    Result := RunWithMemoConsole(Memo, Options.s_YTdl_PATH, Options.ParseYTArgs(args), MemoThread, [Options.ParseYTArgs(args)] );
+    Result := RunWithMemoConsole(Memo, g_PobierakSettings.s_YTdl_PATH, ARGS, MemoThread, [args] );
 end;
 
 function TForm1.RunInConsole (ARGS: string) : boolean;  overload;
 begin
-    Result := RunWithMemoConsole(Memo1, Options.s_YTdl_PATH, Options.ParseYTArgs(ARGS), MemoThr, [Options.ParseYTArgs(args)] );
+    Result := RunWithMemoConsole(Memo1, g_PobierakSettings.s_YTdl_PATH, ARGS, MemoThr, [args] );
 end;
 
 function TForm1.RunInConsole (ARGS: string; HEADER : TStringArray ) : boolean;  overload;
 begin
-    Result := RunWithMemoConsole(Memo1, Options.s_YTdl_PATH, Options.ParseYTArgs(ARGS), MemoThr, HEADER);
+    Result := RunWithMemoConsole(Memo1, g_PobierakSettings.s_YTdl_PATH, ARGS, MemoThr, HEADER);
 end;
 
 
@@ -163,41 +167,40 @@ end;
 
 procedure TForm1.radioAdvancedChange(Sender: TObject);
 begin
-  edtFormatNum.Enabled:= TRUE;
+  edtFormatNumV.Enabled:= TRUE;
+  edtFormatNumA.Enabled:= TRUE;
 end;
 
 procedure TForm1.radioQuickChange(Sender: TObject);
 begin
-  edtFormatNum.Enabled:= FALSE;
+  edtFormatNumV.Enabled:= FALSE;
+  edtFormatNumA.Enabled:= FALSE;
 end;
 
-procedure TForm1.GroupBox3Click(Sender: TObject);
-begin
 
-end;
 
 
 procedure TForm1.btnDownloadClick(Sender: TObject);
 begin
-   // RunInConsole (EditVideoURL.Text + ' ' +parseAllAdditionalArgs());
-  RunInNewTab(EditVideoURL.Text + ' ' +parseAllAdditionalArgs(),PageControl2,'⬇⬇⬇');
+  RunInNewTab(EditVideoURL.Text + ' ' +parseArgs(),PageControlTabs,'⬇');
 end;
 
 procedure TForm1.btnFormatDataClick(Sender: TObject);
 begin
-    RunInConsole (EditVideoURL.Text + ' -F');
+    RunInNewTab(EditVideoURL.Text + ' -F ""' ,PageControlTabs,'F');
 end;
 
 procedure TForm1.btnGetInfoClick(Sender: TObject);
-var addArgs : string;
+var addArgs, args : string;
+
 begin
-   addArgs := ' ';
+   addArgs := '';
    addArgs += ' --get-title ';
    addArgs += ' --get-duration ';
    addArgs += ' --get-description ';
 
-
-   RunInConsole (EditVideoURL.Text + ' ' + addArgs, ['GET VIDEO INFO:'] );
+   args := EditVideoURL.Text + addArgs + ' ""';
+   RunInConsole (args, ['GET VIDEO INFO:',args] );
 end;
 
 
@@ -209,6 +212,8 @@ begin
 end;
 
 function TForm1.parseQualitySetting() : string;
+var
+  adv_V,adv_A :string;
 begin
    Result := '-f ';
    if radioQuick.Checked then
@@ -223,7 +228,7 @@ begin
      2 :  // medium a/v precompiled
           Result += 'best.3';
      3 :  // worst a/v precompiled
-          Result := '-S +size'; // := not +=
+          Result := '-S +size,+br'; // := not +=
      4 :  // best audio only
           Result += 'bestaudio';
      5 :  // best video only
@@ -231,21 +236,30 @@ begin
      end;
    end else if radioAdvanced.Checked then
    begin
-     Result += edtFormatNum.Text;
+     adv_V := edtFormatNumV.Text;
+     adv_A := edtFormatNumA.Text;
+     if((adv_V.Length>0) and (adv_A.Length>0)) then
+       Result += adv_V +'+'+ adv_A
+     else
+       Result += adv_V + adv_A;
    end;
 end;
 
-function TForm1.parseAllAdditionalArgs() : string;
+function TForm1.parseArgs() : string;
 var
   tempStrArr : TStringArray;
   i :integer;
 begin
+   // quality settings
    Result := ' '+parseQualitySetting()+' ';
 
+   // time cut from-to
    if chboxFragment.Checked then
    begin
       Result += ' --download-sections "*'+edtTimeFrom.text + '-' + edttimeTo.text+'"';
    end;
+
+   // chapters
    if chboxByChapter.Checked then
    begin
       tempStrArr := string(edtChapters.Text).Split(';') ;
@@ -256,14 +270,20 @@ begin
       if length(tempStrArr) > 1 then
          Result += ' -o "%(title)s_%(chapter)s.%(ext)s"';             /// needs work !!!
    end;
+
+   // force key frames
    if chboxForceKeyframes.Checked then
       Result += ' --force-keyframes-at-cuts';
 
+   // add custom args
    if chboxCustomArgs.Checked then
       Result += edtCustomArgs.Text;
+
+   //Finally add YT-DLP settings
+   Result := g_PobierakSettings.ParseYTArgs(Result);
 end;
 
- /// --- OPTIONS Tab Interface ---  ///
+ /// --- g_PobierakSettings Tab Interface ---  ///
  //////////////////////////////////////
 
 procedure TForm1.btnYTBinaryClick(Sender: TObject);
@@ -271,8 +291,8 @@ begin
   if OpenDialog1.execute then
      if fileExists(OpenDialog1.Filename) then
      begin
-          Options.s_YTdl_PATH := OpenDialog1.Filename;
-          edtYtDlpBinary.Text := Options.s_YTdl_PATH;
+          g_PobierakSettings.s_YTdl_PATH := OpenDialog1.Filename;
+          edtYtDlpBinary.Text := g_PobierakSettings.s_YTdl_PATH;
      end;
 end;
 
@@ -281,8 +301,8 @@ begin
   if SelectDirectoryDialog1.execute then
      if directoryExists(SelectDirectoryDialog1.Filename) then
      begin
-          Options.s_FFMPG_FOLDER:= SelectDirectoryDialog1.Filename;
-          edtFFMPGfolder.Text := Options.s_FFMPG_FOLDER;
+          g_PobierakSettings.s_FFMPG_FOLDER:= SelectDirectoryDialog1.Filename;
+          edtFFMPGfolder.Text := g_PobierakSettings.s_FFMPG_FOLDER;
      end;
 
 end;
@@ -292,16 +312,16 @@ begin
      if SelectDirectoryDialog1.execute then
        if directoryExists(SelectDirectoryDialog1.Filename) then
        begin
-            Options.s_OutputFolder:= SelectDirectoryDialog1.Filename;
-            edtOutputFolder.Text := Options.s_OutputFolder;
+            g_PobierakSettings.s_OutputFolder:= SelectDirectoryDialog1.Filename;
+            edtOutputFolder.Text := g_PobierakSettings.s_OutputFolder;
        end;
 
 end;
 
 procedure TForm1.btnSaveClick(Sender: TObject);
 begin
-  Options.SaveSettings();
-  Memo1.Lines.Add('Setting saved at: ' + Options.GetINIPath() );
+  g_PobierakSettings.SaveSettings();
+  Memo1.Lines.Add('Setting saved at: ' + g_PobierakSettings.GetINIPath() );
 end;
 
 procedure TForm1.bntDebugClick(Sender: TObject);
@@ -313,7 +333,7 @@ end;
 procedure TForm1.btnInfoClick(Sender: TObject);
 begin
 
-  RunInConsole (' --verbose');
+  RunInConsole ('--verbose');
 end;
 
 procedure TForm1.btnUpdateYTdlpClick(Sender: TObject);
@@ -321,12 +341,8 @@ var response : integer;
 begin
   response := MessageDlg('Do you want to auto-update YT-dlp using "yt-dlp -U"', mtConfirmation, [mbYes, mbNo], 0);
   if response = mrYes then
-     RunInNewTab('-U',PageControl2,'AutoUpdate');
+     RunInNewTab('-U',PageControlTabs,'AutoUpdate');
 end;
-
-
-
-
 
 
 procedure TForm1.StaticTextURLMouseEnter(Sender: TObject);
@@ -355,28 +371,32 @@ end;
 procedure TForm1.btnAddTabClick(Sender: TObject);
 
 begin
-     RunInNewTab('',PageControl2,'Task');
+     RunInNewTab('',PageControlTabs,'Task');
 end;
 
 procedure TForm1.btnClearTabMemoClick(Sender: TObject);
 var activeTab : TTabSheet;
 var m :TMemo;
-var idx:integer;
+var id:integer;
 begin
-     activeTab := PageControl2.ActivePage;
-     idx := activeTab.PageIndex;
-     if (idx = 0 ) then
-        m := Memo1
+     activeTab := PageControlTabs.ActivePage;
+     id := activeTab.Tag;
+     if (id = -1 ) then
+     begin
+        m := Memo1;
+        m.Lines.Clear();
+     end
      else
-         m := g_JobTabs[idx-1].memo;
-
-     m.Lines.Clear();
-
+         g_JobTabs[id].ClearMemo();
 end;
 
 procedure TForm1.btnCloseTabClick(Sender: TObject);
+var activeTab : TTabSheet;
+  id :integer;
 begin
-
+    id := PageControlTabs.ActivePage.Tag;
+    if (id >= 0) then
+       g_JobTabs[id].closeTab();
 end;
 
 end.

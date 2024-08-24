@@ -10,7 +10,6 @@ unit MemoThread;
 // Implementation:
 // External_Process ( RunExternal._Proc ) ---{ automatically }--> Pipe
 // Pipe ---{ RunExternal._Thread copies from Pipe }--> Stream (RunExternal._Stream)
-// Stream ---{ TMemoThr copies from Stream }--> TMemo
 interface
 
 uses
@@ -27,11 +26,12 @@ type
      isTaskFinished :boolean;
 
      function _DebugState (showMessage : boolean) : string;
+     procedure StopAndTerminate();
  end;
 
 function RunWithMemoConsole(var Memo : Tmemo; EXE_PATH , ARGS : string; out MemoThr : TMemoThr; HEADERS: TStringArray) : boolean;
 function RunWithMemoConsole(var Memo : Tmemo; EXE_PATH , ARGS : string;  out MemoThr : TMemoThr) : boolean; overload;
-function RunWithMemoConsole(var Memo : Tmemo; ARGS: string; out MemoThr : TMemoThr) : boolean;  overload;    // customized for PobierakYT
+//function RunWithMemoConsole(var Memo : Tmemo; ARGS: string; out MemoThr : TMemoThr) : boolean;  overload;    // customized for PobierakYT
 
 
 implementation
@@ -79,6 +79,12 @@ begin
 
 end;
 
+procedure tMemoThr.StopAndTerminate();
+begin
+  self.Re.Destroy();
+  self.Terminate();
+end;
+
 function RunWithMemoConsole(var Memo : Tmemo; EXE_PATH , ARGS : string;  out MemoThr : TMemoThr; HEADERS: TStringArray) : boolean;
   var RE : TRunExternal;
   var i:integer;
@@ -112,9 +118,5 @@ begin
     Result := RunWithMemoConsole(Memo, EXE_PATH, ARGS, MemoThr, []);
 end;
 
-function RunWithMemoConsole(var Memo : Tmemo; ARGS: string; out MemoThr : TMemoThr ) : boolean;  overload;
-begin
-   Result := RunWithMemoConsole(Memo, Options.s_YTdl_PATH, Options.ParseYTArgs(args), MemoThr);
-end;
 
 end.

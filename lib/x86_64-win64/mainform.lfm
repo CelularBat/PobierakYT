@@ -1,0 +1,565 @@
+object Form1: TForm1
+  Left = 206
+  Height = 675
+  Top = 32
+  Width = 1141
+  HorzScrollBar.Page = 616
+  VertScrollBar.Page = 675
+  AutoScroll = True
+  Caption = 'PobierakYT'
+  ClientHeight = 675
+  ClientWidth = 1124
+  Color = clForm
+  OnCreate = FormCreate
+  LCLVersion = '3.4.0.0'
+  object PageControl1: TPageControl
+    Left = 26
+    Height = 603
+    Top = 6
+    Width = 494
+    ActivePage = TabSingleVideo
+    Anchors = [akTop, akLeft, akBottom]
+    TabIndex = 0
+    TabOrder = 0
+    object TabSingleVideo: TTabSheet
+      Caption = 'Single Video'
+      ClientHeight = 575
+      ClientWidth = 486
+      object GroupBox4: TGroupBox
+        Left = 19
+        Height = 154
+        Top = 269
+        Width = 452
+        Caption = 'Download fragment [hh:mm:ss]'
+        ClientHeight = 134
+        ClientWidth = 448
+        ParentBackground = False
+        TabOrder = 3
+        object chboxFragment: TCheckBox
+          Left = 13
+          Height = 17
+          Top = 14
+          Width = 18
+          TabOrder = 0
+        end
+        object edtTimeFrom: TEdit
+          Left = 64
+          Height = 23
+          Top = 14
+          Width = 51
+          TabOrder = 1
+          Text = '00:00:00'
+        end
+        object edtTimeTo: TEdit
+          Left = 141
+          Height = 23
+          Top = 14
+          Width = 51
+          TabOrder = 2
+          Text = '00:00:00'
+        end
+        object Label3: TLabel
+          Left = 32
+          Height = 15
+          Top = 16
+          Width = 28
+          Caption = 'From'
+          ParentColor = False
+        end
+        object Label4: TLabel
+          Left = 122
+          Height = 15
+          Top = 16
+          Width = 12
+          Caption = 'To'
+          ParentColor = False
+        end
+        object chboxForceKeyFrames: TCheckBox
+          Left = 250
+          Height = 19
+          Hint = 'Optional: Force keyframes on cuts to improve artifacts. Slow.'
+          Top = 13
+          Width = 137
+          Caption = 'Force Keyframes(slow)'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+        end
+        object chboxByChapter: TCheckBox
+          Left = 13
+          Height = 19
+          Top = 45
+          Width = 263
+          Caption = 'By chapters'' names:  (REGEX, separated by ";" )'
+          TabOrder = 4
+        end
+        object edtChapters: TEdit
+          Left = 13
+          Height = 23
+          Top = 70
+          Width = 431
+          TabOrder = 5
+        end
+        object chboxSplitChapters: TCheckBox
+          Left = 13
+          Height = 19
+          Top = 102
+          Width = 184
+          Caption = 'Split chapters into separate files'
+          TabOrder = 6
+        end
+      end
+      object EditVideoURL: TEdit
+        Left = 20
+        Height = 23
+        Top = 19
+        Width = 365
+        TabOrder = 0
+        Text = 'Paste URL here...'
+        OnClick = EditVideoURLClick
+      end
+      object btnDownload: TButton
+        Left = 394
+        Height = 70
+        Top = 19
+        Width = 77
+        Caption = 'Download'
+        TabOrder = 1
+        OnClick = btnDownloadClick
+      end
+      object GroupBox1: TGroupBox
+        Left = 18
+        Height = 160
+        Top = 96
+        Width = 454
+        Caption = 'Video quality option'
+        ClientHeight = 140
+        ClientWidth = 450
+        ParentBackground = False
+        TabOrder = 2
+        object radioQuick: TRadioButton
+          Left = 13
+          Height = 19
+          Top = 12
+          Width = 49
+          Caption = 'Quick'
+          Checked = True
+          TabOrder = 1
+          TabStop = True
+          OnChange = radioQuickChange
+        end
+        object radioAdvanced: TRadioButton
+          Left = 13
+          Height = 19
+          Top = 83
+          Width = 71
+          Caption = 'Advanced'
+          TabOrder = 0
+          OnChange = radioAdvancedChange
+        end
+        object GroupBox2: TGroupBox
+          Left = 115
+          Height = 58
+          Top = 12
+          Width = 286
+          Caption = 'Quick settings'
+          ClientHeight = 38
+          ClientWidth = 282
+          ParentBackground = False
+          TabOrder = 2
+          object cmbboxQuickQuality: TComboBox
+            Left = 6
+            Height = 23
+            Top = 6
+            Width = 262
+            ItemHeight = 15
+            Items.Strings = (
+              'Highest Quality (separated & joined)'
+              'Highest Precompiled Quality '
+              'Medium Precompiled Quality'
+              'Lowest Precompiled Quality'
+              'Best Audio Only'
+              'Best Video Only'
+            )
+            TabOrder = 0
+            Text = 'Choose Quality'
+          end
+        end
+        object GroupBox3: TGroupBox
+          Left = 114
+          Height = 51
+          Top = 83
+          Width = 288
+          Caption = 'Advanced quality settings'
+          ClientHeight = 31
+          ClientWidth = 284
+          ParentBackground = False
+          TabOrder = 3
+          object btnFormatData: TButton
+            Left = 174
+            Height = 26
+            Top = 0
+            Width = 96
+            Caption = 'Get Format Data'
+            TabOrder = 0
+            OnClick = btnFormatDataClick
+          end
+          object edtFormatNumV: TEdit
+            Left = 24
+            Height = 23
+            Top = 0
+            Width = 53
+            Enabled = False
+            TabOrder = 1
+          end
+          object edtFormatNumA: TEdit
+            Left = 96
+            Height = 23
+            Top = 0
+            Width = 56
+            Alignment = taRightJustify
+            Enabled = False
+            TabOrder = 2
+          end
+        end
+        object Label6: TLabel
+          Left = 128
+          Height = 15
+          Top = 104
+          Width = 7
+          Caption = 'V'
+        end
+        object Label7: TLabel
+          Left = 200
+          Height = 15
+          Top = 104
+          Width = 8
+          Caption = 'A'
+        end
+      end
+      object btnGetInfo: TButton
+        Left = 19
+        Height = 26
+        Top = 51
+        Width = 96
+        Caption = 'Get Video Info'
+        TabOrder = 4
+        OnClick = btnGetInfoClick
+      end
+      object GroupBox5: TGroupBox
+        Left = 18
+        Height = 56
+        Top = 435
+        Width = 453
+        Caption = 'Add Custom Parameters'
+        ClientHeight = 36
+        ClientWidth = 449
+        ParentBackground = False
+        TabOrder = 5
+        object chboxCustomArgs: TCheckBox
+          Left = 12
+          Height = 17
+          Top = 10
+          Width = 18
+          TabOrder = 0
+        end
+        object edtCustomArgs: TEdit
+          Left = 38
+          Height = 23
+          Top = 6
+          Width = 402
+          TabOrder = 1
+        end
+      end
+      object GroupBox6: TGroupBox
+        Left = 18
+        Height = 51
+        Top = 499
+        Width = 454
+        Caption = 'Custom Output Format'
+        ParentBackground = False
+        TabOrder = 6
+      end
+    end
+    object TabSubtitles: TTabSheet
+      Caption = 'Subtitles'
+      ClientHeight = 575
+      ClientWidth = 486
+      object edtSubtitlesURL: TEdit
+        Left = 20
+        Height = 23
+        Top = 19
+        Width = 365
+        TabOrder = 0
+        Text = 'Paste URL here...'
+      end
+      object btnCheckSubs: TButton
+        Left = 20
+        Height = 46
+        Top = 64
+        Width = 204
+        Caption = 'Check avalaible subtitles languages'
+        TabOrder = 1
+      end
+    end
+    object TabPlaylist: TTabSheet
+      Caption = 'Playlists'
+    end
+    object TabOptions: TTabSheet
+      Caption = 'Options'
+      ClientHeight = 575
+      ClientWidth = 486
+      ParentFont = False
+      object Label1: TLabel
+        Left = 36
+        Height = 15
+        Top = 25
+        Width = 112
+        Caption = 'Path to yt-dlp binary:'
+        ParentColor = False
+      end
+      object edtYtDlpBinary: TEdit
+        Left = 166
+        Height = 23
+        Top = 25
+        Width = 278
+        TabOrder = 0
+        Text = 'Add YT-dlp binary path...'
+      end
+      object btnYTBinary: TButton
+        Left = 442
+        Height = 22
+        Top = 25
+        Width = 26
+        Caption = '...'
+        TabOrder = 1
+        OnClick = btnYTBinaryClick
+      end
+      object Label2: TLabel
+        Left = 36
+        Height = 15
+        Top = 166
+        Width = 116
+        Caption = 'Path to FFMPG folder:'
+        ParentColor = False
+      end
+      object edtFFMPGfolder: TEdit
+        Left = 166
+        Height = 23
+        Top = 160
+        Width = 278
+        TabOrder = 2
+        Text = 'Add FFMPEG folder...'
+      end
+      object btnFFMPG: TButton
+        Left = 442
+        Height = 22
+        Top = 160
+        Width = 26
+        Caption = '...'
+        TabOrder = 3
+        OnClick = btnFFMPGClick
+      end
+      object btnInfo: TButton
+        Left = 331
+        Height = 32
+        Top = 314
+        Width = 136
+        Caption = 'Build Info'
+        TabOrder = 4
+        OnClick = btnInfoClick
+      end
+      object btnSave: TButton
+        Left = 19
+        Height = 51
+        Top = 480
+        Width = 122
+        Caption = 'Save'
+        Font.Color = clLime
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 5
+        OnClick = btnSaveClick
+      end
+      object Label5: TLabel
+        Left = 36
+        Height = 15
+        Top = 256
+        Width = 75
+        Caption = 'Output folder:'
+        ParentColor = False
+      end
+      object edtOutputFolder: TEdit
+        Left = 166
+        Height = 23
+        Top = 250
+        Width = 285
+        TabOrder = 6
+        Text = 'Add output folder...'
+      end
+      object btnOutputFolder: TButton
+        Left = 442
+        Height = 22
+        Top = 250
+        Width = 26
+        Caption = '...'
+        TabOrder = 7
+        OnClick = btnOutputFolderClick
+      end
+      object StaticText1: TStaticText
+        Left = 36
+        Height = 19
+        Top = 51
+        Width = 431
+        Caption = 'You can also download yt-dlp from the official site:  (double click to open)'
+        TabOrder = 8
+      end
+      object StaticText2: TStaticText
+        Left = 36
+        Height = 19
+        Top = 70
+        Width = 431
+        Caption = 'https://github.com/yt-dlp/yt-dlp'
+        Color = clHighlight
+        Font.Color = clHighlight
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        ParentColor = False
+        TabOrder = 9
+        OnDblClick = StaticTextURLDblClick
+        OnMouseEnter = StaticTextURLMouseEnter
+        OnMouseLeave = StaticTextURLMouseLeave
+      end
+      object StaticText3: TStaticText
+        Left = 36
+        Height = 19
+        Top = 192
+        Width = 431
+        Caption = 'You can download FFMPEG for yt-dlp here:'
+        TabOrder = 10
+      end
+      object StaticText4: TStaticText
+        Left = 38
+        Height = 19
+        Top = 211
+        Width = 431
+        Caption = 'https://github.com/yt-dlp/FFmpeg-Builds#ffmpeg-static-auto-builds'
+        Color = clHighlight
+        Font.Color = clHighlight
+        Font.Style = [fsUnderline]
+        ParentFont = False
+        ParentColor = False
+        TabOrder = 11
+        OnDblClick = StaticTextURLDblClick
+        OnMouseEnter = StaticTextURLMouseEnter
+        OnMouseLeave = StaticTextURLMouseLeave
+      end
+      object btnUpdateYTdlp: TButton
+        Left = 331
+        Height = 36
+        Top = 102
+        Width = 136
+        Caption = 'YT-dlp Auto - Update'
+        TabOrder = 12
+        OnClick = btnUpdateYTdlpClick
+      end
+      object StaticText5: TStaticText
+        Left = 128
+        Height = 22
+        Top = 117
+        Width = 198
+        Caption = 'Update YT-dlp to the newest version'
+        TabOrder = 13
+      end
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 655
+    Width = 1124
+    Color = clGradientInactiveCaption
+    Font.Color = clCaptionText
+    Panels = <>
+    ParentColor = False
+    ParentFont = False
+  end
+  object bntDebug: TButton
+    Left = 410
+    Height = 25
+    Top = 653
+    Width = 82
+    Caption = 'bntDebug'
+    TabOrder = 3
+    Visible = False
+    OnClick = bntDebugClick
+  end
+  object PageControlTabs: TPageControl
+    Left = 520
+    Height = 655
+    Top = 0
+    Width = 604
+    ActivePage = TabSheet1
+    Align = alRight
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = True
+    MultiLine = True
+    ParentFont = False
+    TabIndex = 0
+    TabOrder = 2
+    Options = [nboShowCloseButtons, nboMultiLine]
+    object TabSheet1: TTabSheet
+      Tag = -1
+      Caption = 'Console'
+      ClientHeight = 627
+      ClientWidth = 596
+      Font.Color = clLime
+      Font.Style = [fsBold]
+      ParentFont = False
+      object Memo1: TMemo
+        AnchorSideBottom.Side = asrBottom
+        Left = 0
+        Height = 608
+        Top = 0
+        Width = 598
+        Align = alCustom
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWindowText
+        Font.Color = clHighlightText
+        Font.Name = 'Consolas'
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 0
+      end
+    end
+  end
+  object btnClearTabMemo: TButton
+    Left = 520
+    Height = 22
+    Top = 627
+    Width = 96
+    Anchors = [akLeft, akBottom]
+    Caption = 'Clear Output'
+    TabOrder = 4
+    OnClick = btnClearTabMemoClick
+  end
+  object btnCloseTab: TButton
+    Left = 1016
+    Height = 21
+    Top = 627
+    Width = 105
+    Anchors = [akRight, akBottom]
+    Caption = 'Close Tab'
+    TabOrder = 5
+    OnClick = btnCloseTabClick
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 90
+    Top = 602
+  end
+  object SelectDirectoryDialog1: TSelectDirectoryDialog
+    Left = 51
+    Top = 602
+  end
+end

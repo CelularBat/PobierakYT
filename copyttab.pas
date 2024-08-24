@@ -15,6 +15,7 @@ procedure CloneActivePage(PageControl: TPageControl);
 function SpawnNewTab(var PageControl: TPageControl;CloneIdx : integer; newName : string ; out page : TTabSheet; out Memo :Tmemo) : boolean;
 
 function _StripUnicode(const Input: string): string;
+function _StripWrongChars(const Input: string): string;
 implementation
 
 
@@ -85,6 +86,18 @@ begin
       Result := Result + Input[i];
 end;
 
+function _StripWrongChars(const Input: string): string;
+var
+  i: Integer;
+begin
+  Result:='';
+  for i := 1 to Length(Input) do
+  begin
+    if Input[i] in ['0'..'9', 'A'..'Z', 'a'..'z'] then
+      Result := Result + Input[i];
+  end;
+end;
+
 function CloneTabEx(FromControl: TControl; newName : string): TControl;
 var
   C: TControl;
@@ -106,6 +119,7 @@ var
   t :Tcontrol;
 begin
     safeName := 'C'+_StripUnicode(newName);
+    safeName := _StripWrongChars(safename);
     page := CloneTabEx(PageControl.Pages[0],safeName ) as TTabSheet;
     page.PageControl := PageControl;
     page.Parent := PageControl;

@@ -12,7 +12,8 @@ uses
 }
 
 
-{ Run external application ( in new TProcess )  and store output in TStream ( copping is done in new Thread ). You can get output anytime you want.
+{ Run external application ( in new TProcess )  and store output in TStream ( copping is done in new TThread ).
+You can get output anytime you want.
 
 
 // Example for writing output in real-time.

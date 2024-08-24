@@ -21,8 +21,9 @@ type TMySettings = class
 
 end;
 
+var g_PobierakSettings : TMySettings;
 const INIFILE_NAME = 'PobierakYT_Settings.ini';
-var Options : TMySettings;
+
 
 implementation
 

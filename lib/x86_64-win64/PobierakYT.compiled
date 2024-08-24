@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="C:\Programy\Lazarus\fpc\3.2.2\bin\x86_64-win64\fpc.exe" Date="1488546183"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -gw2 -godwarfsets -gl -WG -l -vewnhibq -FiC:\Users\Radojewo\Documents\_LAZARUS\PobierakYT\lib\x86_64-win64 -FuC:\Programy\Lazarus\lcl\units\x86_64-win64\win32 -FuC:\Programy\Lazarus\lcl\units\x86_64-win64 -FuC:\Programy\Lazarus\components\freetype\lib\x86_64-win64 -FuC:\Programy\Lazarus\components\lazutils\lib\x86_64-win64 -FuC:\Programy\Lazarus\packager\units\x86_64-win64 -FuC:\Users\Radojewo\Documents\_LAZARUS\PobierakYT\ -FUC:\Users\Radojewo\Documents\_LAZARUS\PobierakYT\lib\x86_64-win64\ -FEC:\Users\Radojewo\Documents\_LAZARUS\PobierakYT\ -oC:\Users\Radojewo\Documents\_LAZARUS\PobierakYT\PobierakYT.exe -dLCL -dLCLwin32 PobierakYT.lpr"/>
+</CONFIG>
