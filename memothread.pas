@@ -93,6 +93,12 @@ begin
        for i:=0 to Length(HEADERS)-1 do
            Memo.Lines.Add(HEADERS[i]);
        Memo.Lines.Add('');
+       if not( FileExists(EXE_PATH) ) then
+       begin
+         Memo.Lines.Add('Error: File '+EXE_PATH+' does not exist!');
+         Memo.Lines.Add ('< ...Task FAILED >');
+         Exit;
+       end;
 
        Result := False;
        try

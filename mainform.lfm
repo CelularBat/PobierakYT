@@ -1,31 +1,31 @@
 object Form1: TForm1
-  Left = 206
+  Left = 279
   Height = 675
-  Top = 32
-  Width = 1141
+  Top = 42
+  Width = 1112
   HorzScrollBar.Page = 616
   VertScrollBar.Page = 675
   AutoScroll = True
   Caption = 'PobierakYT'
   ClientHeight = 675
-  ClientWidth = 1124
+  ClientWidth = 1095
   Color = clForm
   OnCreate = FormCreate
   LCLVersion = '3.4.0.0'
   object PageControl1: TPageControl
     Left = 26
-    Height = 603
+    Height = 606
     Top = 6
     Width = 494
-    ActivePage = TabSingleVideo
+    ActivePage = TabOptions
     Anchors = [akTop, akLeft, akBottom]
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     object TabSingleVideo: TTabSheet
       Caption = 'Single Video'
-      ClientHeight = 575
+      ClientHeight = 578
       ClientWidth = 486
-      object GroupBox4: TGroupBox
+      object GroupBoxFragments: TGroupBox
         Left = 19
         Height = 154
         Top = 269
@@ -127,7 +127,7 @@ object Form1: TForm1
         TabOrder = 1
         OnClick = btnDownloadClick
       end
-      object GroupBox1: TGroupBox
+      object GroupBoxQuality: TGroupBox
         Left = 18
         Height = 160
         Top = 96
@@ -246,7 +246,7 @@ object Form1: TForm1
         TabOrder = 4
         OnClick = btnGetInfoClick
       end
-      object GroupBox5: TGroupBox
+      object GroupBoxCustom: TGroupBox
         Left = 18
         Height = 56
         Top = 435
@@ -271,19 +271,10 @@ object Form1: TForm1
           TabOrder = 1
         end
       end
-      object GroupBox6: TGroupBox
-        Left = 18
-        Height = 51
-        Top = 499
-        Width = 454
-        Caption = 'Custom Output Format'
-        ParentBackground = False
-        TabOrder = 6
-      end
     end
     object TabSubtitles: TTabSheet
       Caption = 'Subtitles'
-      ClientHeight = 575
+      ClientHeight = 578
       ClientWidth = 486
       object edtSubtitlesURL: TEdit
         Left = 20
@@ -307,7 +298,7 @@ object Form1: TForm1
     end
     object TabOptions: TTabSheet
       Caption = 'Options'
-      ClientHeight = 575
+      ClientHeight = 578
       ClientWidth = 486
       ParentFont = False
       object Label1: TLabel
@@ -323,6 +314,7 @@ object Form1: TForm1
         Height = 23
         Top = 25
         Width = 278
+        Enabled = False
         TabOrder = 0
         Text = 'Add YT-dlp binary path...'
       end
@@ -348,6 +340,7 @@ object Form1: TForm1
         Height = 23
         Top = 160
         Width = 278
+        Enabled = False
         TabOrder = 2
         Text = 'Add FFMPEG folder...'
       end
@@ -361,9 +354,9 @@ object Form1: TForm1
         OnClick = btnFFMPGClick
       end
       object btnInfo: TButton
-        Left = 331
+        Left = 328
         Height = 32
-        Top = 314
+        Top = 499
         Width = 136
         Caption = 'Build Info'
         TabOrder = 4
@@ -391,10 +384,11 @@ object Form1: TForm1
         ParentColor = False
       end
       object edtOutputFolder: TEdit
-        Left = 166
+        Left = 159
         Height = 23
-        Top = 250
+        Top = 249
         Width = 285
+        Enabled = False
         TabOrder = 6
         Text = 'Add output folder...'
       end
@@ -472,13 +466,42 @@ object Form1: TForm1
         Caption = 'Update YT-dlp to the newest version'
         TabOrder = 13
       end
+      object GroupBoxOutput: TGroupBox
+        Left = 4
+        Height = 57
+        Top = 391
+        Width = 463
+        Caption = 'Use custom output file name'
+        ClientHeight = 37
+        ClientWidth = 459
+        ParentBackground = False
+        TabOrder = 14
+        object edtOutputFile: TEdit
+          Left = 40
+          Height = 23
+          Top = 8
+          Width = 416
+          Enabled = False
+          TabOrder = 0
+          Text = '%(playlist_title)s/%(uploader)s - %(title)s.%(ext)s'
+          OnChange = edtOutputFileChange
+        end
+        object chboxOutputfile: TCheckBox
+          Left = 8
+          Height = 17
+          Top = 12
+          Width = 18
+          TabOrder = 1
+          OnChange = chboxOutputfileChange
+        end
+      end
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
     Height = 23
     Top = 655
-    Width = 1124
+    Width = 1095
     Color = clGradientInactiveCaption
     Font.Color = clCaptionText
     Panels = <>
@@ -499,7 +522,7 @@ object Form1: TForm1
     Left = 520
     Height = 655
     Top = 0
-    Width = 604
+    Width = 575
     ActivePage = TabSheet1
     Align = alRight
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -513,7 +536,7 @@ object Form1: TForm1
       Tag = -1
       Caption = 'Console'
       ClientHeight = 627
-      ClientWidth = 596
+      ClientWidth = 567
       Font.Color = clLime
       Font.Style = [fsBold]
       ParentFont = False
@@ -522,7 +545,7 @@ object Form1: TForm1
         Left = 0
         Height = 608
         Top = 0
-        Width = 598
+        Width = 569
         Align = alCustom
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindowText
@@ -537,7 +560,7 @@ object Form1: TForm1
   object btnClearTabMemo: TButton
     Left = 520
     Height = 22
-    Top = 627
+    Top = 630
     Width = 96
     Anchors = [akLeft, akBottom]
     Caption = 'Clear Output'
@@ -545,9 +568,9 @@ object Form1: TForm1
     OnClick = btnClearTabMemoClick
   end
   object btnCloseTab: TButton
-    Left = 1016
+    Left = 987
     Height = 21
-    Top = 627
+    Top = 630
     Width = 105
     Anchors = [akRight, akBottom]
     Caption = 'Close Tab'

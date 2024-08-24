@@ -19,9 +19,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainForm"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="80"/>
-        <CursorPos X="3" Y="93"/>
+        <TopLine Value="116"/>
+        <CursorPos X="66" Y="281"/>
         <UsageCount Value="580"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -31,8 +30,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="RunExternal"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="96"/>
-        <CursorPos X="38" Y="110"/>
+        <TopLine Value="177"/>
+        <CursorPos X="20" Y="229"/>
         <UsageCount Value="580"/>
         <Loaded Value="True"/>
       </Unit>
@@ -40,18 +39,19 @@
         <Filename Value="pobierak.engine.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pobierak.Engine"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="34"/>
-        <CursorPos X="47" Y="46"/>
+        <TopLine Value="77"/>
+        <CursorPos X="11" Y="91"/>
         <UsageCount Value="580"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="pobierak.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="76"/>
-        <CursorPos X="11" Y="24"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="51"/>
+        <CursorPos X="83" Y="64"/>
         <UsageCount Value="558"/>
         <Loaded Value="True"/>
       </Unit>
@@ -60,7 +60,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="copyTTab"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="81"/>
+        <TopLine Value="109"/>
         <CursorPos X="14" Y="93"/>
         <UsageCount Value="262"/>
         <Loaded Value="True"/>
@@ -70,8 +70,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MemoThread"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="94"/>
-        <CursorPos Y="121"/>
+        <TopLine Value="7"/>
+        <CursorPos X="82" Y="102"/>
         <UsageCount Value="240"/>
         <Loaded Value="True"/>
       </Unit>
@@ -88,20 +88,20 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="717"/>
         <CursorPos X="15" Y="712"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="56"/>
       </Unit>
       <Unit>
         <Filename Value="C:\Programy\Lazarus\fpc\3.2.2\source\rtl\objpas\classes\stringl.inc"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="305"/>
         <CursorPos X="65" Y="933"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="56"/>
       </Unit>
       <Unit>
         <Filename Value="C:\Programy\Lazarus\lcl\include\customnotebook.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="76"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="1"/>
       </Unit>
       <Unit>
         <Filename Value="C:\Programy\Lazarus\lcl\controls.pp"/>
@@ -109,7 +109,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="51"/>
         <CursorPos X="3" Y="65"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="6"/>
       </Unit>
       <Unit>
         <Filename Value="C:\Programy\Lazarus\lcl\stdctrls.pp"/>
@@ -117,102 +117,17 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1034"/>
         <CursorPos X="14" Y="1046"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="7"/>
       </Unit>
       <Unit>
         <Filename Value="C:\Programy\Lazarus\lcl\include\control.inc"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="3523"/>
         <CursorPos Y="3537"/>
-        <UsageCount Value="11"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="8"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="111" Column="43" TopLine="104"/>
-      </Position>
-      <Position>
-        <Filename Value="pobierak.settings.pas"/>
-        <Caret Line="24" Column="23"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="113" TopLine="286"/>
-      </Position>
-      <Position>
-        <Filename Value="pobierak.engine.pas"/>
-        <Caret Line="53" Column="68" TopLine="33"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="161" Column="103" TopLine="145"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="186" Column="51" TopLine="162"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="187" Column="45" TopLine="163"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="215" Column="22" TopLine="191"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="242" Column="22" TopLine="218"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="248" Column="23" TopLine="224"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="277" Column="38" TopLine="132"/>
-      </Position>
-      <Position>
-        <Filename Value="pobierak.engine.pas"/>
-        <Caret Line="77" Column="68"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="93" Column="14" TopLine="93"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="127" Column="16" TopLine="126"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="326" Column="18" TopLine="317"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="188" Column="89" TopLine="178"/>
-      </Position>
-      <Position>
-        <Filename Value="runexternal.pas"/>
-        <Caret Line="110" Column="38" TopLine="96"/>
-      </Position>
-      <Position>
-        <Filename Value="pobierak.engine.pas"/>
-        <Caret Line="46" Column="47" TopLine="34"/>
-      </Position>
-      <Position>
-        <Filename Value="copyttab.pas"/>
-        <Caret Line="121" Column="44" TopLine="108"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="216" Column="31" TopLine="208"/>
-      </Position>
-      <Position>
-        <Filename Value="mainform.pas"/>
-        <Caret Line="217" Column="31" TopLine="209"/>
-      </Position>
       <Position>
         <Filename Value="mainform.pas"/>
         <Caret Line="218" Column="31" TopLine="210"/>
@@ -248,6 +163,90 @@
       <Position>
         <Filename Value="mainform.pas"/>
         <Caret Line="180" TopLine="172"/>
+      </Position>
+      <Position>
+        <Filename Value="runexternal.pas"/>
+        <Caret Line="227" Column="23" TopLine="212"/>
+      </Position>
+      <Position>
+        <Filename Value="memothread.pas"/>
+        <Caret Line="100" Column="15" TopLine="81"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="58" Column="25" TopLine="63"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="87" Column="22" TopLine="72"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="16" Column="13" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="58" Column="16" TopLine="34"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="16" Column="16" TopLine="6"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="58" Column="46" TopLine="36"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.engine.pas"/>
+        <Caret Line="16" Column="14" TopLine="2"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="350" Column="102" TopLine="332"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="349" Column="102" TopLine="331"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="346" Column="49" TopLine="331"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="347" Column="49" TopLine="332"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="348" Column="3" TopLine="320"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="351" Column="70" TopLine="335"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="352" Column="41" TopLine="328"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="358" Column="28" TopLine="338"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.settings.pas"/>
+        <Caret Line="102" Column="39" TopLine="84"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.settings.pas"/>
+        <Caret Line="108" Column="38" TopLine="85"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="289" Column="33" TopLine="276"/>
+      </Position>
+      <Position>
+        <Filename Value="pobierak.settings.pas"/>
+        <Caret Line="64" Column="83" TopLine="51"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -224,7 +224,9 @@ begin
            on E: Exception do
            begin
               ShowMessage( 'Error: '+ E.ClassName + #13#10 + E.Message + #13#10 + 'Failed to execute: '+RE._Proc.Executable );
-              Exit;
+              RE.Free;
+              self.free;
+              exit;
            end;
      end;
 

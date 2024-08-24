@@ -12,8 +12,10 @@ type TMySettings = class
       var s_YTdl_PATH : ansistring;
       var s_FFMPG_FOLDER : ansistring;
       var s_OutputFolder : ansistring;
+      var s_CustomOutput :ansistring;
+      var s_UseCustomOutput : boolean;
       function GetINIPath() : string;
-      function ParseYTArgs(args:ansistring) : ansistring;
+      function ParseSettingsArgs(args:ansistring) : ansistring;
       function LoadSettings() : boolean;
       procedure ReadFromINI(iniPath :string);
       procedure SaveSettings();
@@ -58,15 +60,9 @@ begin
   s_YTdl_PATH := Ini.ReadString('Main','YTdl_PATH','');
   s_FFMPG_FOLDER := Ini.ReadString('Main','FFMPG_FOLDER','');
   s_OutputFolder := Ini.ReadString('Main', 'OutputFolder', '');
+  s_CustomOutput := Ini.ReadString('Main', 'CustomOutput', '');
+  s_UseCustomOutput := StrtoBool (Ini.ReadString('Main', 'UseCustomOutput', 'False'));
   Ini.Free();
-end;
-
-procedure TMySettings.SaveSettings();
-var iniPath : string;
-begin
-   iniPath := GetINIPath();
-   WriteToINI(iniPath);
-
 end;
 
 procedure TMySettings.WriteToINI(iniPath :string);
@@ -79,6 +75,8 @@ begin
         Ini.WriteString('Main','YTdl_PATH',s_YTdl_PATH);
         Ini.WriteString('Main','FFMPG_FOLDER',s_FFMPG_FOLDER);
         Ini.WriteString('Main', 'OutputFolder', s_OutputFolder);
+        Ini.WriteString('Main', 'CustomOutput', s_CustomOutput);
+        Ini.WriteString('Main', 'UseCustomOutput', BoolToStr(s_UseCustomOutput,TRUE));
         Ini.UpdateFile();
       except
           on E: Exception do
@@ -94,9 +92,20 @@ begin
 
 end;
 
-function TMySettings.ParseYTArgs(args:ansistring) : ansistring;
+procedure TMySettings.SaveSettings();
+var iniPath : string;
 begin
-  Result := args+' --ffmpeg-location "'+ s_FFMPG_FOLDER+'"' + ' -P "' +s_OutputFolder + '"' ;
+   iniPath := GetINIPath();
+   WriteToINI(iniPath);
+end;
+
+function TMySettings.ParseSettingsArgs(args:ansistring) : ansistring;
+begin
+  Result := args+' --ffmpeg-location "'+ s_FFMPG_FOLDER+'"';
+  if (s_OutputFolder.Length > 1) then
+     Result += ' -P "' +s_OutputFolder + '"' ;
+  if (s_UseCustomOutput and (s_CustomOutput.Length > 1)) then
+     Result += ' -o "'+s_CustomOutput+'"';
 
 end;
 

@@ -31,7 +31,9 @@ type
     chboxForceKeyFrames: TCheckBox;
     chboxByChapter: TCheckBox;
     chboxSplitChapters: TCheckBox;
+    chboxOutputfile: TCheckBox;
     cmbboxQuickQuality: TComboBox;
+    edtOutputFile: TEdit;
     edtFormatNumA: TEdit;
     edtOutputFolder: TEdit;
     edtSubtitlesURL: TEdit;
@@ -43,12 +45,12 @@ type
     EditVideoURL: TEdit;
     edtYtDlpBinary: TEdit;
     edtFFMPGfolder: TEdit;
-    GroupBox1: TGroupBox;
+    GroupBoxOutput: TGroupBox;
+    GroupBoxQuality: TGroupBox;
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
-    GroupBox4: TGroupBox;
-    GroupBox5: TGroupBox;
-    GroupBox6: TGroupBox;
+    GroupBoxFragments: TGroupBox;
+    GroupBoxCustom: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -87,7 +89,9 @@ type
     procedure btnGetInfoClick(Sender: TObject);
     procedure btnUpdateYTdlpClick(Sender: TObject);
     procedure btnCloseTabClick(Sender: TObject);
+    procedure chboxOutputfileChange(Sender: TObject);
     procedure EditVideoURLClick(Sender: TObject);
+    procedure edtOutputFileChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure radioAdvancedChange(Sender: TObject);
 
@@ -211,6 +215,8 @@ begin
     EditVideoURL.SelectAll;
 end;
 
+
+
 function TForm1.parseQualitySetting() : string;
 var
   adv_V,adv_A :string;
@@ -280,7 +286,7 @@ begin
       Result += edtCustomArgs.Text;
 
    //Finally add YT-DLP settings
-   Result := g_PobierakSettings.ParseYTArgs(Result);
+   Result := g_PobierakSettings.ParseSettingsArgs(Result);
 end;
 
  /// --- g_PobierakSettings Tab Interface ---  ///
@@ -332,7 +338,6 @@ end;
 
 procedure TForm1.btnInfoClick(Sender: TObject);
 begin
-
   RunInConsole ('--verbose');
 end;
 
@@ -344,7 +349,19 @@ begin
      RunInNewTab('-U',PageControlTabs,'AutoUpdate');
 end;
 
+procedure TForm1.chboxOutputfileChange(Sender: TObject);
+begin
+   edtOutputFile.Enabled := not (edtOutputFile.Enabled) ;
+   g_PobierakSettings.s_UseCustomOutput := chboxOutputFile.checked;
+end;
 
+procedure TForm1.edtOutputFileChange(Sender: TObject);
+begin
+   g_PobierakSettings.s_CustomOutput:= edtOutputFile.Text ;
+end;
+
+// Settings descriptions and URLs
+//-------------------------------
 procedure TForm1.StaticTextURLMouseEnter(Sender: TObject);
 begin
    TStaticText(Sender).Cursor := crHandPoint;
@@ -398,6 +415,8 @@ begin
     if (id >= 0) then
        g_JobTabs[id].closeTab();
 end;
+
+
 
 end.
 

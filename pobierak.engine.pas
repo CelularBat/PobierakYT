@@ -13,8 +13,8 @@ type TJobTab = Object
    tab:TTabSheet;
    memo: TMemo;
    memoThr:TMemoThr;
-   isWorking: boolean;
-   isAlive: boolean;
+   isFinished: Pboolean; // wrapper to MemoThr.isTaskfinished
+   isAlive: boolean;     // tells if Tab wasn't closed
    function closeTab():Boolean;
    procedure ClearMemo();
 end;
@@ -55,6 +55,7 @@ begin
       memo := m;
       memoThr := MemoThread;
       tab := page;
+      isFinished := @MemoThread.isTaskFinished;
       isalive := TRUE;
     end;
     page.Tag := g_UniqueTabID;
@@ -83,11 +84,11 @@ begin
     Result := TRUE;
     id := self.tab.Tag;
     if (id = -1) then exit; // We don't want to close the main console
-    if self.isWorking then
+    if not(self.isFinished^) then
     begin
      response := MessageDlg('Tab is working, stop the job?', mtConfirmation, [mbYes, mbNo], 0);
      if response = mrYes then
-        self.memoThr.StopAndTerminate()
+        //self.memoThr.StopAndTerminate()
      else
        begin
         Result := FALSE;
