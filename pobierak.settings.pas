@@ -15,7 +15,7 @@ type TMySettings = class
       var s_CustomOutput :ansistring;
       var s_UseCustomOutput : boolean;
       function GetINIPath() : string;
-      function ParseSettingsArgs(args:ansistring) : ansistring;
+      function ParseSettingsArgs(args:ansistring; igoreOutputFormat : boolean = FALSE) : ansistring;
       function LoadSettings() : boolean;
       procedure ReadFromINI(iniPath :string);
       procedure SaveSettings();
@@ -99,12 +99,12 @@ begin
    WriteToINI(iniPath);
 end;
 
-function TMySettings.ParseSettingsArgs(args:ansistring) : ansistring;
+function TMySettings.ParseSettingsArgs(args:ansistring; igoreOutputFormat : boolean = FALSE) : ansistring;
 begin
   Result := args+' --ffmpeg-location "'+ s_FFMPG_FOLDER+'"';
   if (s_OutputFolder.Length > 1) then
      Result += ' -P "' +s_OutputFolder + '"' ;
-  if (s_UseCustomOutput and (s_CustomOutput.Length > 1)) then
+  if ((not igoreOutputFormat) and (s_UseCustomOutput and (s_CustomOutput.Length > 1))) then
      Result += ' -o "'+s_CustomOutput+'"';
 
 end;

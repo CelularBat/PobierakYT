@@ -77,6 +77,7 @@ type
     TabOptions: TTabSheet;
     TabPlaylist: TTabSheet;
     procedure bntDebugClick(Sender: TObject);
+    procedure btnCheckSubsClick(Sender: TObject);
     procedure btnFFMPGClick(Sender: TObject);
     procedure btnOutputFolderClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
@@ -118,6 +119,7 @@ var  Form1: TForm1;
 var MemoThr : TMemoThr;
 
 
+
 implementation
 
 {$R *.lfm}
@@ -133,11 +135,14 @@ begin
   Memo1.ScrollBars:=ssVertical;
 
   g_PobierakSettings := TMySettings.Create();
+  // Load settings into GUI:
   if g_PobierakSettings.LoadSettings() then
   begin
     self.edtFFMPGfolder.Text := g_PobierakSettings.s_FFMPG_FOLDER;
     self.edtYtDlpBinary.Text := g_PobierakSettings.s_YTdl_PATH;
     self.edtOutputFolder.Text := g_PobierakSettings.s_OutputFolder;
+    self.edtOutputFile.Text:=  g_PobierakSettings.s_CustomOutput ;
+    self.chboxOutputfile.Checked:= g_PobierakSettings.s_UseCustomOutput;
   end;
     //TESTING PURPOSE
     EditVideoURL.Text := 'https://www.youtube.com/watch?v=C0DPdy98e4c';
@@ -181,6 +186,11 @@ begin
   edtFormatNumA.Enabled:= FALSE;
 end;
 
+ procedure TForm1.EditVideoURLClick(Sender: TObject);
+begin
+    EditVideoURL.SetFocus;
+    EditVideoURL.SelectAll;
+end;
 
 
 
@@ -209,11 +219,7 @@ end;
 
 
 
-procedure TForm1.EditVideoURLClick(Sender: TObject);
-begin
-    EditVideoURL.SetFocus;
-    EditVideoURL.SelectAll;
-end;
+
 
 
 
@@ -255,6 +261,7 @@ function TForm1.parseArgs() : string;
 var
   tempStrArr : TStringArray;
   i :integer;
+  f_ignoreGlobalOutpurFormat : boolean;
 begin
    // quality settings
    Result := ' '+parseQualitySetting()+' ';
@@ -266,16 +273,27 @@ begin
    end;
 
    // chapters
+   f_ignoreGlobalOutpurFormat := False;
+
+   if chboxSplitChapters.Checked then
+   begin
+      f_ignoreGlobalOutpurFormat := TRUE;    // this will tell settings parsing func to ignore "-o"
+      Result += ' --split-chapters';
+   end;
+
+
    if chboxByChapter.Checked then
    begin
+      f_ignoreGlobalOutpurFormat := TRUE;   // this will tell settings parsing func to ignore "-o"
       tempStrArr := string(edtChapters.Text).Split(';') ;
       for i:= 0 to length(tempStrArr)-1 do
       begin
            Result += ' --download-sections "'+tempStrArr[i]+'"';
       end;
-      if length(tempStrArr) > 1 then
-         Result += ' -o "%(title)s_%(chapter)s.%(ext)s"';             /// needs work !!!
    end;
+   if ( f_ignoreGlobalOutpurFormat ) then
+      Result += ' -o "%(uploader)s_%(title)s_[%(section_title)s].%(ext)s"';             /// needs work !!!
+
 
    // force key frames
    if chboxForceKeyframes.Checked then
@@ -286,7 +304,7 @@ begin
       Result += edtCustomArgs.Text;
 
    //Finally add YT-DLP settings
-   Result := g_PobierakSettings.ParseSettingsArgs(Result);
+   Result := g_PobierakSettings.ParseSettingsArgs(Result,f_ignoreGlobalOutpurFormat);
 end;
 
  /// --- g_PobierakSettings Tab Interface ---  ///
@@ -336,9 +354,15 @@ begin
        ShowMessage( MemoThr._DebugState(true) );
 end;
 
+
 procedure TForm1.btnInfoClick(Sender: TObject);
 begin
   RunInConsole ('--verbose');
+end;
+
+procedure TForm1.btnAddTabClick(Sender: TObject);
+begin
+
 end;
 
 procedure TForm1.btnUpdateYTdlpClick(Sender: TObject);
@@ -353,6 +377,7 @@ procedure TForm1.chboxOutputfileChange(Sender: TObject);
 begin
    edtOutputFile.Enabled := not (edtOutputFile.Enabled) ;
    g_PobierakSettings.s_UseCustomOutput := chboxOutputFile.checked;
+   g_PobierakSettings.s_CustomOutput:= edtOutputFile.Text ;
 end;
 
 procedure TForm1.edtOutputFileChange(Sender: TObject);
@@ -382,14 +407,9 @@ end;
 
 
 
- /// --- other Interfaces ---  ///
+ /// --- Tab Interfaces ---  ///
  /////////////////////////////////
 
-procedure TForm1.btnAddTabClick(Sender: TObject);
-
-begin
-     RunInNewTab('',PageControlTabs,'Task');
-end;
 
 procedure TForm1.btnClearTabMemoClick(Sender: TObject);
 var activeTab : TTabSheet;
@@ -408,14 +428,20 @@ begin
 end;
 
 procedure TForm1.btnCloseTabClick(Sender: TObject);
-var activeTab : TTabSheet;
-  id :integer;
+var  id :integer;
 begin
     id := PageControlTabs.ActivePage.Tag;
     if (id >= 0) then
        g_JobTabs[id].closeTab();
 end;
 
+/// --- Subtitles Interfaces ---  ///
+////////////////////////////////////
+
+procedure TForm1.btnCheckSubsClick(Sender: TObject);
+begin
+  RunInNewTab(EditVideoURL.Text + ' --list-subs --simulate ""' ,PageControlTabs,'Sub');
+end;
 
 
 end.

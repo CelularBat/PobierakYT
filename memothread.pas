@@ -31,7 +31,6 @@ type
 
 function RunWithMemoConsole(var Memo : Tmemo; EXE_PATH , ARGS : string; out MemoThr : TMemoThr; HEADERS: TStringArray) : boolean;
 function RunWithMemoConsole(var Memo : Tmemo; EXE_PATH , ARGS : string;  out MemoThr : TMemoThr) : boolean; overload;
-//function RunWithMemoConsole(var Memo : Tmemo; ARGS: string; out MemoThr : TMemoThr) : boolean;  overload;    // customized for PobierakYT
 
 
 implementation
