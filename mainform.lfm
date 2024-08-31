@@ -1,21 +1,21 @@
 object Form1: TForm1
-  Left = 392
-  Height = 844
-  Top = 116
+  Left = 442
+  Height = 854
+  Top = 131
   Width = 1460
-  HorzScrollBar.Page = 770
-  VertScrollBar.Page = 844
+  HorzScrollBar.Page = 768
+  VertScrollBar.Page = 697
   AutoScroll = True
   Caption = 'PobierakYT'
-  ClientHeight = 844
-  ClientWidth = 1439
+  ClientHeight = 854
+  ClientWidth = 1460
   Color = clForm
   DesignTimePPI = 120
   OnCreate = FormCreate
   LCLVersion = '3.4.0.0'
   object PageControl1: TPageControl
     Left = 32
-    Height = 807
+    Height = 817
     Top = 8
     Width = 618
     ActivePage = TabSingleVideo
@@ -23,8 +23,8 @@ object Form1: TForm1
     TabIndex = 0
     TabOrder = 0
     object TabSingleVideo: TTabSheet
-      Caption = 'Single Video'
-      ClientHeight = 774
+      Caption = 'Video'
+      ClientHeight = 784
       ClientWidth = 610
       object GroupBoxFragments: TGroupBox
         Left = 24
@@ -276,7 +276,7 @@ object Form1: TForm1
     end
     object TabSubtitles: TTabSheet
       Caption = 'Subtitles'
-      ClientHeight = 774
+      ClientHeight = 784
       ClientWidth = 610
       object edtSubtitlesURL: TEdit
         Left = 25
@@ -289,19 +289,66 @@ object Form1: TForm1
       object btnCheckSubs: TButton
         Left = 25
         Height = 58
-        Top = 80
+        Top = 88
         Width = 255
         Caption = 'Check avalaible subtitles languages'
         TabOrder = 1
         OnClick = btnCheckSubsClick
       end
+      object GroupBox1: TGroupBox
+        Left = 25
+        Height = 200
+        Top = 200
+        Width = 567
+        ClientHeight = 175
+        ClientWidth = 563
+        ParentBackground = False
+        TabOrder = 2
+        object edtSubLang: TEdit
+          Left = 25
+          Height = 28
+          Top = 65
+          Width = 303
+          TabOrder = 0
+        end
+        object edtSubFormat: TEdit
+          Left = 397
+          Height = 28
+          Top = 65
+          Width = 147
+          TabOrder = 1
+        end
+        object Label8: TLabel
+          Left = 25
+          Height = 20
+          Top = 32
+          Width = 262
+          Caption = 'Subtitles Languages (separated by  "," ):'
+        end
+        object Label9: TLabel
+          Left = 397
+          Height = 20
+          Top = 32
+          Width = 109
+          Caption = 'Subtitles format:'
+        end
+      end
+      object btnDownloadSub: TButton
+        Left = 168
+        Height = 64
+        Top = 328
+        Width = 240
+        Caption = 'Download Subtitles'
+        TabOrder = 3
+        OnClick = btnDownloadSubClick
+      end
     end
     object TabPlaylist: TTabSheet
-      Caption = 'Playlists'
+      Caption = 'Bulk Download'
     end
     object TabOptions: TTabSheet
       Caption = 'Options'
-      ClientHeight = 774
+      ClientHeight = 784
       ClientWidth = 610
       ParentFont = False
       object Label1: TLabel
@@ -503,29 +550,19 @@ object Form1: TForm1
   object StatusBar1: TStatusBar
     Left = 0
     Height = 28
-    Top = 819
-    Width = 1439
+    Top = 826
+    Width = 1460
     Color = clGradientInactiveCaption
     Font.Color = clCaptionText
     Panels = <>
     ParentColor = False
     ParentFont = False
   end
-  object bntDebug: TButton
-    Left = 512
-    Height = 31
-    Top = 816
-    Width = 102
-    Caption = 'bntDebug'
-    TabOrder = 3
-    Visible = False
-    OnClick = bntDebugClick
-  end
   object PageControlTabs: TPageControl
     Left = 648
-    Height = 819
+    Height = 826
     Top = 0
-    Width = 791
+    Width = 812
     ActivePage = TabSheet1
     Align = alRight
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -538,17 +575,17 @@ object Form1: TForm1
     object TabSheet1: TTabSheet
       Tag = -1
       Caption = 'Console'
-      ClientHeight = 786
-      ClientWidth = 783
+      ClientHeight = 793
+      ClientWidth = 804
       Font.Color = clLime
       Font.Style = [fsBold]
       ParentFont = False
       object Memo1: TMemo
         AnchorSideBottom.Side = asrBottom
         Left = 0
-        Height = 767
+        Height = 766
         Top = 0
-        Width = 785
+        Width = 806
         Align = alCustom
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindowText
@@ -561,31 +598,31 @@ object Form1: TForm1
     end
   end
   object btnClearTabMemo: TButton
-    Left = 650
-    Height = 28
-    Top = 800
+    Left = 648
+    Height = 32
+    Top = 792
     Width = 120
     Anchors = [akLeft, akBottom]
     Caption = 'Clear Output'
-    TabOrder = 4
+    TabOrder = 3
     OnClick = btnClearTabMemoClick
   end
   object btnCloseTab: TButton
-    Left = 1304
-    Height = 26
-    Top = 801
-    Width = 131
+    Left = 1320
+    Height = 32
+    Top = 792
+    Width = 136
     Anchors = [akRight, akBottom]
     Caption = 'Close Tab'
-    TabOrder = 5
+    TabOrder = 4
     OnClick = btnCloseTabClick
   end
   object OpenDialog1: TOpenDialog
-    Left = 113
-    Top = 753
+    Left = 576
+    Top = 776
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
-    Left = 64
-    Top = 753
+    Left = 536
+    Top = 776
   end
 end

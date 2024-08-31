@@ -11,11 +11,10 @@ uses
 
 type PTTabSheet = ^TTabSheet;
 
-procedure CloneActivePage(PageControl: TPageControl);
+
 function SpawnNewTab(var PageControl: TPageControl;CloneIdx : integer; newName : string ; out page : TTabSheet; out Memo :Tmemo) : boolean;
 
-function _StripUnicode(const Input: string): string;
-function _StripWrongChars(const Input: string): string;
+
 implementation
 
 
@@ -35,9 +34,17 @@ begin
   try
     TempMem := TMemoryStream.Create;
     try
-      TempMem.WriteComponent(FromControl);
-      TempMem.Position := 0;
-      TempMem.ReadComponent(ToControl);
+       try
+        TempMem.WriteComponent(FromControl);
+        TempMem.Position := 0;
+        TempMem.ReadComponent(ToControl);
+       except
+         on E: Exception do
+           begin
+              ShowMessage( 'Error: '+ E.ClassName + #13#10 + E.Message );
+           end;
+       end;
+
     finally
       TempMem.Free;
     end;
@@ -61,17 +68,6 @@ begin
 end;
 
 
-procedure CloneActivePage(PageControl: TPageControl);
-var
-  Page: TTabSheet;
-begin
-  if PageControl.ActivePage <> nil then
-  begin
-    Page := CloneControl(PageControl.ActivePage) as TTabSheet;
-    Page.PageControl := PageControl;
-    PageControl.ActivePage := Page;
-  end;
-end;
 
 
 
@@ -98,7 +94,7 @@ begin
   end;
 end;
 
-function CloneTabEx(FromControl: TControl; newName : string): TControl;
+{function CloneTabEx(FromControl: TControl; newName : string): TControl;
 var
   C: TControl;
 begin
@@ -108,7 +104,7 @@ begin
   if FromControl is TWinControl then
     for C in TWinControl(FromControl).GetEnumeratorControls do
       CloneControl(C).Parent := TWinControl(Result);
-end;
+end; }
 
 
 
@@ -116,14 +112,15 @@ function SpawnNewTab(var PageControl: TPageControl;CloneIdx : integer; newName :
 var
   safeName : string; // component name stripped from special characters
   i:integer;
-  t :Tcontrol;
 begin
     safeName := 'C'+_StripUnicode(newName);
     safeName := _StripWrongChars(safename);
-    page := CloneTabEx(PageControl.Pages[0],safeName ) as TTabSheet;
+
+    //page := CloneTabEx(PageControl.Pages[0],safeName ) as TTabSheet;
+    page := CloneControl(PageControl.Pages[0] ) as TTabSheet;
     page.PageControl := PageControl;
     page.Parent := PageControl;
-    PageControl.ActivePage := page;
+
 
 
     for i := 0  to page.ControlCount-1 do
@@ -139,6 +136,7 @@ begin
     end;
     Memo.Lines.Clear();
     page.Caption := newName;
+    PageControl.ActivePage := page;
 end;
 
 

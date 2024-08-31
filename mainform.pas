@@ -5,14 +5,16 @@ unit MainForm;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls, LCLIntf,
-  ExtCtrls, IniFiles, Process, RunExternal,pobierak.Settings, pobierak.Engine,copyttab,memothread;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
+  LCLIntf, ExtCtrls, Buttons, IniFiles, Process, RunExternal, pobierak.Settings,
+  pobierak.Engine, copyttab, memothread;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
+    btnDownloadSub: TButton;
     btnFFMPG: TButton;
     btnOutputFolder: TButton;
     btnSave: TButton;
@@ -21,7 +23,6 @@ type
     btnClearTabMemo: TButton;
     btnDownload: TButton;
     btnGetInfo: TButton;
-    bntDebug: TButton;
     btnFormatData: TButton;
     btnUpdateYTdlp: TButton;
     btnCheckSubs: TButton;
@@ -33,6 +34,8 @@ type
     chboxSplitChapters: TCheckBox;
     chboxOutputfile: TCheckBox;
     cmbboxQuickQuality: TComboBox;
+    edtSubFormat: TEdit;
+    edtSubLang: TEdit;
     edtOutputFile: TEdit;
     edtFormatNumA: TEdit;
     edtOutputFolder: TEdit;
@@ -45,6 +48,7 @@ type
     EditVideoURL: TEdit;
     edtYtDlpBinary: TEdit;
     edtFFMPGfolder: TEdit;
+    GroupBox1: TGroupBox;
     GroupBoxOutput: TGroupBox;
     GroupBoxQuality: TGroupBox;
     GroupBox2: TGroupBox;
@@ -58,6 +62,8 @@ type
     Label5: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
     Memo1: TMemo;
     OpenDialog1: TOpenDialog;
     PageControl1: TPageControl;
@@ -78,6 +84,7 @@ type
     TabPlaylist: TTabSheet;
     procedure bntDebugClick(Sender: TObject);
     procedure btnCheckSubsClick(Sender: TObject);
+    procedure btnDownloadSubClick(Sender: TObject);
     procedure btnFFMPGClick(Sender: TObject);
     procedure btnOutputFolderClick(Sender: TObject);
     procedure btnSaveClick(Sender: TObject);
@@ -208,7 +215,7 @@ procedure TForm1.btnGetInfoClick(Sender: TObject);
 var addArgs, args : string;
 
 begin
-   addArgs := '';
+   addArgs := ' --skip-download ';
    addArgs += ' --get-title ';
    addArgs += ' --get-duration ';
    addArgs += ' --get-description ';
@@ -440,7 +447,16 @@ end;
 
 procedure TForm1.btnCheckSubsClick(Sender: TObject);
 begin
-  RunInNewTab(EditVideoURL.Text + ' --list-subs --simulate ""' ,PageControlTabs,'Sub');
+  RunInNewTab(edtSubtitlesURL.Text + ' --list-subs --simulate ""' ,PageControlTabs,'FSub');
+end;
+
+procedure TForm1.btnDownloadSubClick(Sender: TObject);
+var subs_args : string;
+begin
+  subs_args := edtSubtitlesURL.Text + ' --sub-format "' + edtSubFormat.Text + '" --sub-langs "'+ edtSubLang.Text+'"';
+  subs_args += ' --write-subs   --skip-download  ';
+  subs_args += ' -o "subs/%(uploader)s_%(title)s.%(ext)s"';
+  RunInNewTab(subs_args ,[subs_args, 'Downloading subtitles:'],PageControlTabs,'Sub');
 end;
 
 
