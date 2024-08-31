@@ -15,3 +15,7 @@ PobierakYT offers many advanced yt-dlp functions with just a click of a button, 
  - Custom parameters - you can add any parameters you want to the command line!
  - Bulk download ( not implemented yet)
  
+## Requiments
+PobierakYT is currently only available for Windows (7 / 8 /8.1 /10 / 11) ,but Linux support is also planned.
+ - You need to have yt-dlp.exe ( https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation )
+ - You need to have folder with FFMPEG binaries for yt-dlp ( https://github.com/yt-dlp/FFmpeg-Builds#ffmpeg-static-auto-builds )

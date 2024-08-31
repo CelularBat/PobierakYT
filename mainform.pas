@@ -152,7 +152,7 @@ begin
     self.chboxOutputfile.Checked:= g_PobierakSettings.s_UseCustomOutput;
   end;
     //TESTING PURPOSE
-    EditVideoURL.Text := 'https://www.youtube.com/watch?v=C0DPdy98e4c';
+    // EditVideoURL.Text := 'https://www.youtube.com/watch?v=C0DPdy98e4c';
 end;
 
 
@@ -208,7 +208,7 @@ end;
 
 procedure TForm1.btnFormatDataClick(Sender: TObject);
 begin
-    RunInNewTab(EditVideoURL.Text + ' -F ""' ,PageControlTabs,'F');
+    RunInNewTab(EditVideoURL.Text + ' -F "' ,PageControlTabs,'F');
 end;
 
 procedure TForm1.btnGetInfoClick(Sender: TObject);

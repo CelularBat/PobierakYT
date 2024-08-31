@@ -1,14 +1,14 @@
 object Form1: TForm1
-  Left = 442
+  Left = 116
   Height = 854
-  Top = 131
-  Width = 1460
+  Top = 92
+  Width = 1683
   HorzScrollBar.Page = 768
-  VertScrollBar.Page = 697
+  VertScrollBar.Page = 647
   AutoScroll = True
   Caption = 'PobierakYT'
   ClientHeight = 854
-  ClientWidth = 1460
+  ClientWidth = 1683
   Color = clForm
   DesignTimePPI = 120
   OnCreate = FormCreate
@@ -551,7 +551,7 @@ object Form1: TForm1
     Left = 0
     Height = 28
     Top = 826
-    Width = 1460
+    Width = 1683
     Color = clGradientInactiveCaption
     Font.Color = clCaptionText
     Panels = <>
@@ -562,7 +562,7 @@ object Form1: TForm1
     Left = 648
     Height = 826
     Top = 0
-    Width = 812
+    Width = 1035
     ActivePage = TabSheet1
     Align = alRight
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -576,7 +576,7 @@ object Form1: TForm1
       Tag = -1
       Caption = 'Console'
       ClientHeight = 793
-      ClientWidth = 804
+      ClientWidth = 1027
       Font.Color = clLime
       Font.Style = [fsBold]
       ParentFont = False
@@ -585,7 +585,7 @@ object Form1: TForm1
         Left = 0
         Height = 766
         Top = 0
-        Width = 806
+        Width = 1029
         Align = alCustom
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindowText
@@ -608,7 +608,7 @@ object Form1: TForm1
     OnClick = btnClearTabMemoClick
   end
   object btnCloseTab: TButton
-    Left = 1320
+    Left = 1543
     Height = 32
     Top = 792
     Width = 136

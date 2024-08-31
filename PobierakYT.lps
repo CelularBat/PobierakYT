@@ -8,9 +8,10 @@
       <Unit>
         <Filename Value="PobierakYT.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="68" Y="16"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="48" Y="12"/>
         <UsageCount Value="580"/>
+        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="mainform.pas"/>
@@ -20,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="MainForm"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="197"/>
-        <CursorPos X="121" Y="205"/>
+        <TopLine Value="193"/>
+        <CursorPos X="43" Y="211"/>
         <UsageCount Value="580"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -30,7 +31,7 @@
         <Filename Value="runexternal.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="RunExternal"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="205"/>
         <CursorPos X="12" Y="224"/>
         <UsageCount Value="580"/>
@@ -40,7 +41,7 @@
         <Filename Value="pobierak.engine.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="pobierak.Engine"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="73"/>
         <CursorPos X="55" Y="6"/>
         <UsageCount Value="580"/>
@@ -49,7 +50,7 @@
       <Unit>
         <Filename Value="pobierak.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="68"/>
         <CursorPos X="23" Y="85"/>
         <UsageCount Value="558"/>
@@ -59,7 +60,7 @@
         <Filename Value="copyttab.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="copyTTab"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="105"/>
         <CursorPos X="71" Y="123"/>
         <UsageCount Value="262"/>
@@ -69,7 +70,7 @@
         <Filename Value="memothread.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MemoThread"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="86"/>
         <CursorPos X="118" Y="33"/>
         <UsageCount Value="240"/>
@@ -99,7 +100,7 @@
       </Unit>
       <Unit>
         <Filename Value="C:\Programy\Lazarus\lcl\include\control.inc"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="3520"/>
         <CursorPos Y="3537"/>
         <UsageCount Value="58"/>
@@ -107,10 +108,6 @@
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="29">
-      <Position>
-        <Filename Value="pobierak.settings.pas"/>
-        <Caret Line="102" Column="39" TopLine="84"/>
-      </Position>
       <Position>
         <Filename Value="pobierak.settings.pas"/>
         <Caret Line="108" Column="38" TopLine="85"/>
@@ -226,6 +223,10 @@
       <Position>
         <Filename Value="copyttab.pas"/>
         <Caret Line="108" Column="88" TopLine="108"/>
+      </Position>
+      <Position>
+        <Filename Value="mainform.pas"/>
+        <Caret Line="170" Column="56" TopLine="157"/>
       </Position>
     </JumpHistory>
     <RunParams>
