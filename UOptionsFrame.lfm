@@ -1,117 +1,119 @@
 object FrameOptions: TFrameOptions
   Left = 0
-  Height = 542
+  Height = 678
   Top = 0
-  Width = 486
-  ClientHeight = 542
-  ClientWidth = 486
+  Width = 608
+  ClientHeight = 678
+  ClientWidth = 608
   Color = clCream
+  DesignTimePPI = 120
+  LCLVersion = '4.8.0.0'
   ParentBackground = False
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  DesignLeft = 503
-  DesignTop = 65
+  DesignLeft = 1917
+  DesignTop = 324
   object GroupBoxPathes: TGroupBox
-    Left = 18
-    Height = 286
-    Top = 10
-    Width = 449
-    ClientHeight = 266
-    ClientWidth = 445
+    Left = 23
+    Height = 484
+    Top = 12
+    Width = 561
+    ClientHeight = 459
+    ClientWidth = 557
     ParentBackground = False
     TabOrder = 5
     object Label1: TLabel
-      Left = 8
-      Height = 15
-      Top = 9
-      Width = 112
+      Left = 11
+      Height = 20
+      Top = 2
+      Width = 138
       Caption = 'Path to yt-dlp binary:'
       ParentColor = False
     end
     object edtYtDlpBinary: TEdit
-      Left = 128
-      Height = 23
+      Left = 160
+      Height = 28
       Top = 1
-      Width = 288
+      Width = 360
       Enabled = False
       TabOrder = 0
       Text = 'Add yt-dlp binary path...'
     end
     object btnYTBinary: TButton
-      Left = 414
-      Height = 22
+      Left = 520
+      Height = 28
       Top = 2
-      Width = 26
+      Width = 32
       Caption = '...'
       TabOrder = 1
       OnClick = btnYTBinaryClick
     end
     object Label2: TLabel
-      Left = 8
-      Height = 15
-      Top = 144
-      Width = 116
-      Caption = 'Path to FFMPG folder:'
+      Left = 11
+      Height = 20
+      Top = 136
+      Width = 150
+      Caption = 'Path to FFMPEG folder:'
       ParentColor = False
     end
     object edtFFMPGfolder: TEdit
-      Left = 128
-      Height = 23
+      Left = 168
+      Height = 28
       Top = 136
-      Width = 288
+      Width = 360
       Enabled = False
       TabOrder = 2
       Text = 'Add FFMPEG folder...'
     end
     object btnFFMPG: TButton
-      Left = 414
-      Height = 22
-      Top = 137
-      Width = 26
+      Left = 528
+      Height = 28
+      Top = 136
+      Width = 32
       Caption = '...'
       TabOrder = 3
       OnClick = btnFFMPGClick
     end
     object Label5: TLabel
-      Left = 9
-      Height = 15
-      Top = 238
-      Width = 91
+      Left = 11
+      Height = 20
+      Top = 240
+      Width = 116
       Caption = 'Download folder:'
       ParentColor = False
     end
     object edtOutputFolder: TEdit
-      Left = 128
-      Height = 23
-      Top = 231
-      Width = 288
+      Left = 160
+      Height = 28
+      Top = 240
+      Width = 360
       Enabled = False
       TabOrder = 4
       Text = 'Add output folder...'
     end
     object btnOutputFolder: TButton
-      Left = 414
-      Height = 22
-      Top = 231
-      Width = 26
+      Left = 520
+      Height = 28
+      Top = 240
+      Width = 32
       Caption = '...'
       TabOrder = 5
       OnClick = btnOutputFolderClick
     end
     object StaticText1: TStaticText
-      Left = 8
-      Height = 19
-      Top = 32
-      Width = 449
+      Left = 11
+      Height = 24
+      Top = 40
+      Width = 561
       Caption = 'You can download yt-dlp from the official site:'
       TabOrder = 6
     end
     object StaticText2: TStaticText
-      Left = 9
-      Height = 19
-      Top = 48
-      Width = 447
+      Left = 11
+      Height = 24
+      Top = 64
+      Width = 559
       Caption = 'https://github.com/yt-dlp/yt-dlp'
       Color = clHighlight
       Font.Color = clHighlight
@@ -121,18 +123,18 @@ object FrameOptions: TFrameOptions
       TabOrder = 7
     end
     object StaticText3: TStaticText
-      Left = 9
-      Height = 19
+      Left = 11
+      Height = 24
       Top = 168
-      Width = 431
+      Width = 539
       Caption = 'You can download FFMPEG for yt-dlp from here:'
       TabOrder = 8
     end
     object StaticText4: TStaticText
-      Left = 9
-      Height = 19
-      Top = 184
-      Width = 431
+      Left = 11
+      Height = 24
+      Top = 192
+      Width = 539
       Caption = 'https://github.com/yt-dlp/FFmpeg-Builds#ffmpeg-static-auto-builds'
       Color = clHighlight
       Font.Color = clHighlight
@@ -142,37 +144,146 @@ object FrameOptions: TFrameOptions
       TabOrder = 9
     end
     object StaticText5: TStaticText
-      Left = 72
-      Height = 22
+      Left = 11
+      Height = 28
       Top = 88
-      Width = 232
-      Caption = 'Auto-update YT-DLP to the newest version'
+      Width = 290
+      Caption = 'Auto-update yt-dlp to the newest version:'
       TabOrder = 10
     end
     object btnUpdateYTdlp: TButton
-      Left = 304
-      Height = 36
-      Top = 80
-      Width = 136
-      Caption = 'yt-dlp Auto-Update'
+      Left = 296
+      Height = 28
+      Top = 88
+      Width = 106
+      Caption = 'Update yt-dlp'
       TabOrder = 11
       OnClick = btnUpdateYTdlpClick
     end
+    object edtProxy: TEdit
+      Left = 64
+      Height = 28
+      Top = 272
+      Width = 216
+      TabOrder = 12
+      OnExit = edtProxyExit
+    end
+    object Label6: TLabel
+      Left = 11
+      Height = 20
+      Top = 272
+      Width = 39
+      Caption = 'Proxy:'
+      ParentColor = False
+    end
+    object chboxCookie: TCheckBox
+      Left = 11
+      Height = 24
+      Top = 320
+      Width = 221
+      Caption = 'Import Cookie from a Browser'
+      TabOrder = 13
+      OnChange = chboxCookieChange
+    end
+    object cmbboxBrowserSel: TComboBox
+      Left = 240
+      Height = 28
+      Top = 320
+      Width = 218
+      Enabled = False
+      ItemHeight = 20
+      Items.Strings = (
+        'brave'
+        'chrome'
+        'chromium'
+        'edge'
+        'firefox'
+        'opera'
+        'safari'
+        'vivaldi'
+        'whale'
+      )
+      ReadOnly = True
+      TabOrder = 14
+      OnChange = cmbboxBrowserSelChange
+    end
+    object edtBrowserCookiePath: TEdit
+      Left = 11
+      Height = 28
+      Hint = 'For third party browser users, you need to select your browser''s Core browser in the Import Cookie combobox '#13#10'(e.g. a Librewolf user needs to select firefox first) and enter your browser''s directory for cookie here. If you '#13#10'don''t know this directory, please open your browser, type "about:profiles" and copy the "default-release" '#13#10'profile''s root directory to this textbox.'
+      Top = 352
+      Width = 445
+      Enabled = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 15
+      Text = 'Browser''s profile directory (optional)'
+      OnExit = edtBrowserCookiePathExit
+    end
+    object cmbboxJSRuntimeSel: TComboBox
+      Left = 224
+      Height = 28
+      Hint = 'Select a Javascript runtime for yt-dlp. Yt-dlp can automatically '#13#10'uses Deno if you have put Deno together with yt-dlp.exe, so you '#13#10'don''t have to set anything here if you already set up Deno this way. '#13#10#13#10'By default, if you have Deno, yt-dlp will use it even if you ask it to'#13#10'use another JS runtime with "--js-runtimes" command. But the '#13#10'settings here can override this behavior and let you use the JS'#13#10'runtime you prefer.'#13#10#13#10'If you haven''t downloaded a JS runtime, you can download QuickJS'#13#10'which has the smallest size (a few MB only). Other JS runtimes ranges'#13#10'from 30 to 100-ish MB.'
+      Top = 392
+      Width = 218
+      Enabled = False
+      ItemHeight = 20
+      ItemIndex = 0
+      Items.Strings = (
+        'deno'
+        'node'
+        'quickjs'
+        'bun'
+      )
+      ReadOnly = True
+      TabOrder = 16
+      Text = 'deno'
+      OnChange = cmbboxJSRuntimeSelChange
+    end
+    object chboxJSRuntime: TCheckBox
+      Left = 11
+      Height = 24
+      Top = 392
+      Width = 200
+      Caption = 'Select a Javascript Runtime'
+      TabOrder = 17
+      OnChange = chboxJSRuntimeChange
+    end
+    object edtJsRuntimePath: TEdit
+      Left = 11
+      Height = 28
+      Top = 424
+      Width = 413
+      Enabled = False
+      ParentShowHint = False
+      ShowHint = True
+      TabOrder = 18
+      Text = 'JS Runtime''s directory (if not placed together with yt-dlp)'
+    end
+    object btnJsRuntime: TButton
+      Left = 424
+      Height = 28
+      Top = 424
+      Width = 32
+      Caption = '...'
+      TabOrder = 19
+      OnClick = btnJsRuntimeClick
+    end
   end
   object btnInfo: TButton
-    Left = 331
-    Height = 32
-    Top = 499
-    Width = 136
+    Left = 414
+    Height = 40
+    Top = 624
+    Width = 170
     Caption = 'Build Info'
     TabOrder = 0
     OnClick = btnInfoClick
   end
   object btnSave: TButton
-    Left = 19
-    Height = 51
-    Top = 480
-    Width = 122
+    Left = 24
+    Height = 64
+    Top = 600
+    Width = 152
     Caption = 'Save'
     Color = clMenu
     Font.Color = clLime
@@ -183,51 +294,58 @@ object FrameOptions: TFrameOptions
     OnClick = btnSaveClick
   end
   object GroupBoxOutput: TGroupBox
-    Left = 19
-    Height = 73
-    Top = 400
-    Width = 449
+    Left = 24
+    Height = 91
+    Top = 500
+    Width = 561
     Caption = 'Use custom output file name'
-    ClientHeight = 53
-    ClientWidth = 445
+    ClientHeight = 66
+    ClientWidth = 557
     ParentBackground = False
     TabOrder = 2
     object btnEditOutputList: TButton
-      Left = 344
-      Height = 22
-      Top = -8
-      Width = 96
+      Left = 430
+      Height = 28
+      Top = -10
+      Width = 120
       Caption = 'Edit List'
       TabOrder = 0
       OnClick = btnEditOutputListClick
     end
     object cmbboxOutputTemplate: TComboBox
-      Left = 32
-      Height = 23
-      Top = 16
-      Width = 408
-      ItemHeight = 15
+      Left = 40
+      Height = 28
+      Top = 20
+      Width = 510
+      ItemHeight = 20
       ReadOnly = True
       TabOrder = 1
       OnChange = cmbboxOutputTemplateChange
     end
   end
   inline FolderButtonFrame1: TFolderButtonFrame
-    Left = 36
-    Top = 320
-    Width = 431
-    ClientWidth = 431
+    Left = 424
+    Height = 48
+    Top = 304
+    Width = 152
+    ClientHeight = 48
+    ClientWidth = 152
     TabOrder = 3
+    DesignLeft = 581
+    DesignTop = 306
     inherited SpeedButton1: TSpeedButton
-      Width = 431
+      Left = -8
+      Height = 58
+      Top = -8
+      Width = 161
       AutoSize = True
     end
   end
   object chboxOutputfile: TCheckBox
-    Left = 32
-    Height = 17
-    Top = 440
-    Width = 18
+    Left = 40
+    Height = 20
+    Top = 550
+    Width = 21
     TabOrder = 4
     OnChange = chboxOutputfileChange
   end
@@ -235,14 +353,14 @@ object FrameOptions: TFrameOptions
     Title = 'Choose yt-dlp.exe file. '
     Filter = 'yt-dlp|yt-dlp*.exe|All Files (*.*)|*.*'
     FilterIndex = 0
-    Left = 461
-    Top = 621
+    Left = 576
+    Top = 776
   end
   object SelectDirectoryDialog1: TSelectDirectoryDialog
     Title = 'Choose a folder with ffmpeg.exe , ffprobe.exe'
     Filter = 'All files|(*.*)'
     FilterIndex = 0
-    Left = 429
-    Top = 621
+    Left = 536
+    Top = 776
   end
 end

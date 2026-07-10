@@ -8,12 +8,13 @@ object VideosFrame: TVideosFrame
   ClientWidth = 628
   Color = clCream
   DesignTimePPI = 120
+  LCLVersion = '4.8.0.0'
   ParentBackground = False
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  DesignLeft = 469
-  DesignTop = 97
+  DesignLeft = 46
+  DesignTop = 531
   object EditVideoURL: TEdit
     Left = 25
     Height = 28
@@ -31,7 +32,7 @@ object VideosFrame: TVideosFrame
     Height = 72
     Top = 24
     Width = 96
-    Caption = 'Download !'
+    Caption = 'Download!'
     TabOrder = 1
     OnClick = btnDownloadClick
   end
@@ -343,5 +344,13 @@ object VideosFrame: TVideosFrame
       Caption = 'Download with chapters separated into different files'
       TabOrder = 6
     end
+  end
+  object chboxThumb: TCheckBox
+    Left = 317
+    Height = 24
+    Top = 64
+    Width = 164
+    Caption = 'Download Thumbnail'
+    TabOrder = 7
   end
 end

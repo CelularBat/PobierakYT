@@ -7,7 +7,7 @@ unit UVideosFrame;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, RegExpr, ComCtrls, StdCtrls,
   LCLIntf, LCLType, LCLProc, ExtCtrls, Buttons,
   pobierak.Settings, pobierak.Engine,
   CustomFormatsForm;
@@ -23,6 +23,7 @@ type
     btnFormatData: TButton;
     btnGetInfo: TButton;
     chboxByChapter: TCheckBox;
+    chboxThumb: TCheckBox;
     chboxCustomArgs: TCheckBox;
     chboxForceKeyFrames: TCheckBox;
     chboxFragment: TCheckBox;
@@ -68,7 +69,7 @@ type
   private
 
   public
-
+    //procedure PrCoJsChecks(var outputStr: string);
   end;
 
 implementation
@@ -124,29 +125,127 @@ begin
   EditVideoURL.SelectAll;
 end;
 
-
+{Function for validating if the proxy address entered in edtProxy TEdit box in
+the UOptions frame fits in the "xxx.xxx.xxx.xxx:xxxxx" format. The address can't
+start with "http://" or the like (maybe add support for it in the future).}
+function ProxyValidation(const AText: string): Boolean;
+var
+  Regex: TRegExpr;
+  Pattern: string;
+  PortNum: longint;
+begin
+  Result := False;
+  Pattern := '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([0-9]{1,5})$';
+  Regex := TRegExpr.Create(Pattern);
+  try
+    if Regex.Exec(AText) then
+    begin
+      PortNum := StrToIntDef(Regex.Match[4], 0);
+      if (PortNum >= 1) and (PortNum <= 65535) then
+        Result := True;
+    end;
+  finally
+    Regex.Free;
+  end;
+end;
 
 procedure TVideosFrame.btnDownloadClick(Sender: TObject);
 begin
+  if ProxyValidation(AppGlobalSettings.G_Proxy) then
   RunTab(EditVideoURL.Text + ' ' + parseArgs(), ' ⬇');
 end;
 
+Function PrCoJsChecks(var outputStr: string): Boolean;
+  begin
+  //Validate proxy address using the function above, and add proxy setting if passed.
+  if AppGlobalSettings.G_Proxy <> '' then
+    begin
+      if ProxyValidation(AppGlobalSettings.G_Proxy) then
+        begin
+          outputStr := outputStr + ' --proxy ' + AppGlobalSettings.G_Proxy;
+          Result := True;
+        end
+      else
+        begin
+          ShowMessage('Please check the proxy address in Options tab. Only support IP:Port format (e.g., 127.0.0.1:10001), Adding "http://" or "https://" is not supported');
+          Exit;
+        end
+    end
+  else
+    begin
+      Result := True;
+    end;
+  //Adding Cookie parameters
+  if AppGlobalSettings.G_CookieEnabled = true then
+    begin
+      if (AppGlobalSettings.G_CookieDir <> '') and (directoryExists(AppGlobalSettings.G_CookieDir)) then
+        begin
+          outputStr += ' --cookies-from-browser ' + AppGlobalSettings.G_Browser + ':"' + AppGlobalSettings.G_CookieDir + '"';
+        end
+      else if AppGlobalSettings.G_CookieDir = '' then
+        begin
+          outputStr += ' --cookies-from-browser ' + AppGlobalSettings.G_Browser;
+        end
+    end;
+{Adding JS runtime parameters, using "--no-js-runtimes" parameter here to
+ make sure user's JS runtime selection is respected.}
+  if AppGlobalSettings.G_JsEnabled = true then
+    begin
+      if (AppGlobalSettings.G_JsDir <> '') and (directoryExists(AppGlobalSettings.G_JsDir))then
+        begin
+          outputStr += ' --no-js-runtimes --js-runtimes ' + AppGlobalSettings.G_JsRuntime + ':"' + AppGlobalSettings.G_JsDir + '"';
+        end
+      else if AppGlobalSettings.G_JsDir = '' then
+        begin
+          outputStr += ' --no-js-runtimes --js-runtimes ' + AppGlobalSettings.G_JsRuntime;
+        end
+    end;
+  end;
+
+
 procedure TVideosFrame.btnFormatDataClick(Sender: TObject);
+var addArgs: string;
+  f_ignoreGlobalOutputFormat: boolean;
+  {IDK how but adding "f_ignoreGlobalOutputFormat" and add it to argument solves
+  the problem that my newly added parameters were not being read in
+  Get video info and Get format list.}
+
 begin
-  RunTab(EditVideoURL.Text + ' -F "', ' F');
+addArgs := ' -F';
+if PrCoJsChecks(addArgs) = True then
+  begin
+    PrCoJsChecks(addArgs);
+    RunTab(EditVideoURL.Text + addArgs + g_PobierakSettings.ParseSettingsArgs(f_ignoreGlobalOutputFormat), 'Format');
+  end
+else
+  begin
+    ShowMessage('Please check the proxy address in Options tab. Only support IP:Port format (e.g., 127.0.0.1:10001), Addresses starting with things like "http://" or "https://" is not supported');
+    Exit;
+  end;
 end;
 
 procedure TVideosFrame.btnGetInfoClick(Sender: TObject);
 var
   addArgs, args: string;
+  f_ignoreGlobalOutputFormat: boolean;
+  {IDK how but adding "f_ignoreGlobalOutputFormat" and add it to argument solves
+  the problem that my newly added parameters were not being read in
+  Get video info and Get format list.}
 begin
-  addArgs := ' --skip-download ';
-  addArgs += ' --get-title ';
-  addArgs += ' --get-duration ';
-  addArgs += ' --get-description ';
-
-  args := EditVideoURL.Text + addArgs + ' ""';
-  RunTab(args, ['GET VIDEO INFO:', args], ' Info');
+if PrCoJsChecks(addArgs) = True then
+  begin
+    addArgs := ' --skip-download';
+    addArgs += ' --get-title';
+    addArgs += ' --get-duration';
+    addArgs += ' --get-description ';
+    PrCoJsChecks(addArgs);
+    args := EditVideoURL.Text + addArgs + g_PobierakSettings.ParseSettingsArgs(f_ignoreGlobalOutputFormat);
+    RunTab(args, ['GET VIDEO INFO:', args], 'Info');
+  end
+else
+  begin
+    ShowMessage('Please check the proxy address in Options tab. Only support IP:Port format (e.g., 127.0.0.1:10001). Adding "http://" or "https://" is not supported');
+  end;
 end;
 
 function TVideosFrame.parseQualitySetting(): string;
@@ -199,8 +298,10 @@ function TVideosFrame.parseArgs(): string;
 var
   tempStrArr: TStringArray;
   i: integer;
-  f_ignoreGlobalOutpurFormat: boolean;
+  f_ignoreGlobalOutputFormat: boolean;
 begin
+  if PrCoJsChecks(Result) then
+  begin
   // quality settings
   Result := ' ' + parseQualitySetting() + ' ';
 
@@ -211,11 +312,11 @@ begin
   end;
 
   // chapters
-  f_ignoreGlobalOutpurFormat := False;
+  f_ignoreGlobalOutputFormat := False;
 
   if chboxSplitChapters.Checked then
   begin
-    f_ignoreGlobalOutpurFormat := True;
+    f_ignoreGlobalOutputFormat := True;
     // this will tell settings parsing func to ignore "-o"
     Result += ' --split-chapters';
   end;
@@ -223,7 +324,7 @@ begin
 
   if chboxByChapter.Checked then
   begin
-    f_ignoreGlobalOutpurFormat := True;
+    f_ignoreGlobalOutputFormat := True;
     // this will tell settings parsing func to ignore "-o"
     tempStrArr := string(edtChapters.Text).Split(';');
     for i := 0 to length(tempStrArr) - 1 do
@@ -232,12 +333,12 @@ begin
     end;
   end;
 
-  if (f_ignoreGlobalOutpurFormat) then  // needs work !!!
+  if (f_ignoreGlobalOutputFormat) then  // needs work !!!
     Result += ' -o "%(uploader)s/%(title)s/[%(section_title|NO_SECTION_TITLE)s].%(ext)s"';
 
 
   // if other output is not set, and custom output is not set, then use default outpu
-  if ((not f_ignoreGlobalOutpurFormat) and (not g_PobierakSettings.s_UseCustomOutput) ) then
+  if ((not f_ignoreGlobalOutputFormat) and (not g_PobierakSettings.s_UseCustomOutput) ) then
   begin
     Result += ' -o '+g_PobierakSettings.sc_DEFAULT_OUTPUT_FORMAT;
   end;
@@ -247,17 +348,24 @@ begin
   if chboxForceKeyframes.Checked then
     Result += ' --force-keyframes-at-cuts';
 
+  // download thumbnail
+  if chboxThumb.Checked then
+    Result += ' --write-thumbnail';
+
   // add custom args
   if chboxCustomArgs.Checked then
     Result += ' '+g_PobierakSettings.s_CustomCommandsStrings[
       cmbboxCustomCommands.ItemIndex].CustomString;
 
+  // add proxy, cookie and javascript runtime settings
+  PrCoJsChecks(Result);
 
   // Detect if it's video+playlist link and ask the user what he wants
   DetectVideoAndPlaylistURL(EditVideoURL.Text, Result);
 
   //Finally add YT-DLP settings
-  Result += g_PobierakSettings.ParseSettingsArgs(f_ignoreGlobalOutpurFormat);
+  Result += g_PobierakSettings.ParseSettingsArgs(f_ignoreGlobalOutputFormat);
+  end;
 end;
 
 procedure TVideosFrame.DetectVideoAndPlaylistURL(const URL: string; var dl_args: string);

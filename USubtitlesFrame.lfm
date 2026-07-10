@@ -1,75 +1,77 @@
 object SubtitlesFrame: TSubtitlesFrame
   Left = 0
-  Height = 542
+  Height = 678
   Hint = 'For example: en,fr,de'#13#10'You can also use regex: en.*/zh.*'
   Top = 0
-  Width = 486
-  ClientHeight = 542
-  ClientWidth = 486
+  Width = 608
+  ClientHeight = 678
+  ClientWidth = 608
   Color = clCream
+  DesignTimePPI = 120
+  LCLVersion = '4.8.0.0'
   ParentBackground = False
   ParentColor = False
   ParentFont = False
   TabOrder = 0
-  DesignLeft = 730
-  DesignTop = 116
+  DesignLeft = 2
+  DesignTop = 315
   object edtSubtitlesURL: TEdit
-    Left = 20
-    Height = 23
-    Top = 19
-    Width = 365
+    Left = 25
+    Height = 28
+    Top = 24
+    Width = 456
     TabOrder = 0
     Text = 'Paste URL here...'
   end
   object btnCheckSubs: TButton
-    Left = 20
-    Height = 58
-    Top = 186
-    Width = 210
-    Caption = 'Check avalaible subtitles languages'
+    Left = 25
+    Height = 72
+    Top = 232
+    Width = 262
+    Caption = 'Check avaliable subtitles languages'
     TabOrder = 1
     OnClick = btnCheckSubsClick
   end
   object GroupBox1: TGroupBox
-    Left = 20
-    Height = 152
-    Top = 256
-    Width = 454
+    Left = 25
+    Height = 190
+    Top = 320
+    Width = 568
     Caption = 'Options:'
-    ClientHeight = 132
-    ClientWidth = 450
+    ClientHeight = 165
+    ClientWidth = 564
     ParentBackground = False
     TabOrder = 2
     object edtSubLang: TEdit
-      Left = 21
-      Height = 23
-      Top = 32
-      Width = 339
+      Left = 26
+      Height = 28
+      Top = 40
+      Width = 424
       TabOrder = 0
     end
     object edtSubFormat: TEdit
-      Left = 21
-      Height = 23
-      Top = 96
-      Width = 339
+      Left = 26
+      Height = 28
+      Top = 120
+      Width = 424
       TabOrder = 1
     end
     object Label8: TLabel
-      Left = 21
-      Height = 15
+      Left = 26
+      Height = 20
       Hint = 'For example: en,de,it'#13#10'You can also use regex: en.*,zh.*'#13#10#13#10'If you leave it empty default is: en'
-      Top = 8
-      Width = 208
+      Top = 10
+      Width = 263
       Caption = 'Subtitles languages ( separated by ","  ):'
       ParentShowHint = False
       ShowHint = True
     end
     object Label9: TLabel
-      Left = 21
-      Height = 15
+      Left = 25
+      Height = 20
       Hint = 'For example: srt/json3/best'#13#10#13#10'If youe leave it empty the default is: best'
-      Top = 67
-      Width = 189
+      Top = 83
+      Width = 239
       Anchors = []
       Caption = 'Subtitles format ( separated by "/" ):'
       ParentShowHint = False
@@ -77,19 +79,19 @@ object SubtitlesFrame: TSubtitlesFrame
     end
   end
   object btnDownloadSub: TButton
-    Left = 394
-    Height = 58
-    Top = 19
-    Width = 77
-    Caption = 'Download !'
+    Left = 492
+    Height = 72
+    Top = 24
+    Width = 96
+    Caption = 'Download!'
     TabOrder = 3
     OnClick = btnDownloadSubClick
   end
   object RadioGroupSubs: TRadioGroup
-    Left = 20
-    Height = 71
-    Top = 56
-    Width = 365
+    Left = 25
+    Height = 89
+    Top = 70
+    Width = 456
     AutoFill = True
     Caption = 'Download:'
     ChildSizing.LeftRightSpacing = 6
@@ -99,8 +101,8 @@ object SubtitlesFrame: TSubtitlesFrame
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 51
-    ClientWidth = 361
+    ClientHeight = 64
+    ClientWidth = 452
     ItemIndex = 0
     Items.Strings = (
       'Subtitles'

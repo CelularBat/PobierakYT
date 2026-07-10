@@ -8,7 +8,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  LCLIntf, ExtCtrls, Buttons, FileUtil, FileInfo,
+  LCLIntf, ExtCtrls, Buttons, FileUtil, FileInfo, RegExpr,
   pobierak.settings,pobierak.Engine,
   FolderButtonFrameUnit,CustomFormatsForm,decorator_StaticText_Link;
 
@@ -16,16 +16,24 @@ type
 
   { TFrameOptions }
 
-  TFrameOptions = class(TFrame)
+    TFrameOptions = class(TFrame)
+    btnJsRuntime: TButton;
     btnEditOutputList: TButton;
     btnFFMPG: TButton;
     btnOutputFolder: TButton;
     btnSave: TButton;
     btnInfo: TButton;
     btnYTBinary: TButton;
+    chboxJSRuntime: TCheckBox;
     chboxOutputfile: TCheckBox;
+    chboxCookie: TCheckBox;
+    cmbboxJSRuntimeSel: TComboBox;
     cmbboxOutputTemplate: TComboBox;
+    cmbboxBrowserSel: TComboBox;
+    edtJsRuntimePath: TEdit;
+    edtProxy: TEdit;
     edtOutputFolder: TEdit;
+    edtBrowserCookiePath: TEdit;
     edtYtDlpBinary: TEdit;
     edtFFMPGfolder: TEdit;
     FolderButtonFrame1: TFolderButtonFrame;
@@ -34,6 +42,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     Label5: TLabel;
+    Label6: TLabel;
     OpenDialog1: TOpenDialog;
     SelectDirectoryDialog1: TSelectDirectoryDialog;
     StaticText1: TStaticText;
@@ -42,8 +51,12 @@ type
     StaticText4: TStaticText;
     btnUpdateYTdlp: TButton;
     StaticText5: TStaticText;
-
     procedure btnEditOutputListClick(Sender: TObject);
+    procedure btnJsRuntimeClick(Sender: TObject);
+    procedure chboxCookieChange(Sender: TObject);
+    procedure chboxJSRuntimeChange(Sender: TObject);
+    procedure cmbboxBrowserSelChange(Sender: TObject);
+    procedure cmbboxJSRuntimeSelChange(Sender: TObject);
     procedure cmbboxOutputTemplateChange(Sender: TObject);
     constructor Create(AOwner: TComponent);
     procedure btnFFMPGClick(Sender: TObject);
@@ -53,8 +66,8 @@ type
     procedure btnInfoClick(Sender: TObject);
     procedure btnUpdateYTdlpClick(Sender: TObject);
     procedure chboxOutputfileChange(Sender: TObject);
-
-
+    procedure edtBrowserCookiePathExit(Sender: TObject);
+    procedure edtProxyExit(Sender: TObject);
     procedure LoadSettingsIntoGUI();
 
   end;
@@ -78,7 +91,6 @@ end;
 
 
 
-
 procedure TFrameOptions.LoadSettingsIntoGUI();
 begin
   // Load settings into GUI:
@@ -86,15 +98,38 @@ begin
   self.edtFFMPGfolder.Text := g_PobierakSettings.s_FFMPG_FOLDER;
   self.edtYtDlpBinary.Text := g_PobierakSettings.s_YTdl_PATH;
   self.edtOutputFolder.Text := g_PobierakSettings.s_OutputFolder;
+  self.edtProxy.Text := g_PobierakSettings.s_Proxy;
+  if g_PobierakSettings.s_Cookiedir <> '' then
+    begin
+      self.edtBrowserCookiePath.Text := g_PobierakSettings.s_Cookiedir;
+    end
+  else
+    begin
+      self.edtBrowserCookiePath.Text := 'Browser' + #39 + 's profile directory (optional)';
+    end;
+
+  if g_PobierakSettings.s_JSruntimedir <> '' then
+    begin
+      self.edtJsRuntimePath.Text := g_PobierakSettings.s_JSruntimedir;
+    end
+  else
+    begin
+      self.edtJsRuntimePath.Text := 'JS Runtime' + #39 + 's directory (if not placed together with yt-dlp)';
+    end;
 
   self.FolderButtonFrame1.SetFolderPath(g_PobierakSettings.s_OutputFolder);
 
   self.chboxOutputFile.Checked := g_PobierakSettings.s_UseCustomOutput;
+  self.chboxCookie.Checked := g_PobierakSettings.s_UseCookie;
+  self.chboxJSRuntime.Checked := g_PobierakSettings.s_SetJSruntime;
   self.GroupBoxOutput.Enabled := g_PobierakSettings.s_UseCustomOutput;
   g_PobierakSettings.UpdateComboBox_WithCFA(cmbboxOutputTemplate,
     g_PobierakSettings.s_CustomOutputsStrings);
   self.cmbboxOutputTemplate.ItemIndex := g_PobierakSettings.s_CustomOutputIdx;
-
+  self.cmbboxBrowserSel.ItemIndex := g_PobierakSettings.s_BrowserIdx;
+  self.cmbboxJSRuntimeSel.ItemIndex := g_PobierakSettings.s_JSruntimeIdx;
+  AppGlobalSettings.G_Browser := cmbboxBrowserSel.Text;
+  AppGlobalSettings.G_JsRuntime := cmbboxJSRuntimeSel.Text;
 end;
 
 
@@ -267,11 +302,110 @@ begin
 
 end;
 
+procedure TFrameOptions.edtBrowserCookiePathExit(Sender: TObject);
+begin
+  if directoryExists(edtBrowserCookiePath.Text) then
+    AppGlobalSettings.G_CookieDir := edtBrowserCookiePath.Text;
+end;
+
+function ProxyValidation(const AText: string): Boolean;
+var
+  Regex: TRegExpr;
+  Pattern: string;
+  PortNum: longint;
+begin
+  Result := False;
+  Pattern := '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?):([0-9]{1,5})$';
+  Regex := TRegExpr.Create(Pattern);
+  try
+    if Regex.Exec(AText) then
+    begin
+      PortNum := StrToIntDef(Regex.Match[4], 0);
+      if (PortNum >= 1) and (PortNum <= 65535) then
+        Result := True;
+    end;
+  finally
+    Regex.Free;
+  end;
+end;
+
+procedure TFrameOptions.edtProxyExit(Sender: TObject);
+begin
+  if ProxyValidation(edtProxy.Text) then
+    begin
+      g_PobierakSettings.s_Proxy := edtProxy.Text;
+      AppGlobalSettings.G_Proxy := edtProxy.Text;
+    end
+  else
+    begin
+      ShowMessage('Please check the proxy address in Options tab. Only support IP:Port format (e.g., 127.0.0.1:10001). Adding "http://" or "https://" is not supported');
+    end;
+end;
+
 procedure TFrameOptions.btnEditOutputListClick(Sender: TObject);
 begin
   CustomOutputsForm.ShowModal();
   g_PobierakSettings.UpdateComboBox_WithCFA(cmbboxOutputTemplate,
     g_PobierakSettings.s_CustomOutputsStrings);
+end;
+
+procedure TFrameOptions.btnJsRuntimeClick(Sender: TObject);
+begin
+    if SelectDirectoryDialog1.Execute then
+    if directoryExists(SelectDirectoryDialog1.Filename) then
+    begin
+      edtJsRuntimePath.Text := SelectDirectoryDialog1.Filename;
+      g_PobierakSettings.s_JSruntimedir := SelectDirectoryDialog1.Filename;
+      AppGlobalSettings.G_JsDir := SelectDirectoryDialog1.Filename;
+    end;
+end;
+
+procedure TFrameOptions.chboxCookieChange(Sender: TObject);
+begin
+    if chboxCookie.Checked = true then
+     begin
+       cmbboxBrowserSel.Enabled := true;
+       edtBrowserCookiePath.Enabled := true;
+       g_PobierakSettings.s_UseCookie := true;
+       AppGlobalSettings.G_CookieEnabled := true;
+     end
+  else
+     begin
+       cmbboxBrowserSel.Enabled := false;
+       edtBrowserCookiePath.Enabled := false;
+       g_PobierakSettings.s_UseCookie := false;
+       AppGlobalSettings.G_CookieEnabled := false;
+     end;
+end;
+
+procedure TFrameOptions.chboxJSRuntimeChange(Sender: TObject);
+begin
+    if chboxJSRuntime.Checked = true then
+     begin
+       cmbboxJSRuntimeSel.Enabled := true;
+       edtJsRuntimePath.Enabled := true;
+       g_PobierakSettings.s_SetJSruntime := true;
+       AppGlobalSettings.G_JsEnabled := true;
+     end
+  else
+     begin
+       cmbboxJSRuntimeSel.Enabled := false;
+       edtJsRuntimePath.Enabled := false;
+       g_PobierakSettings.s_SetJSruntime := false;
+       AppGlobalSettings.G_JsEnabled := false;
+     end;
+end;
+
+procedure TFrameOptions.cmbboxBrowserSelChange(Sender: TObject);
+begin
+  g_PobierakSettings.s_BrowserIdx := cmbboxBrowserSel.ItemIndex;
+  AppGlobalSettings.G_Browser := cmbboxBrowserSel.Text;
+end;
+
+procedure TFrameOptions.cmbboxJSRuntimeSelChange(Sender: TObject);
+begin
+  g_PobierakSettings.s_JSruntimeIdx := cmbboxJSRuntimeSel.ItemIndex;
+  AppGlobalSettings.G_JsRuntime := cmbboxJSRuntimeSel.Text;
 end;
 
 procedure TFrameOptions.cmbboxOutputTemplateChange(Sender: TObject);

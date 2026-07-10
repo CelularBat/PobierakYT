@@ -16,7 +16,6 @@ uses
 type
 
   { TForm1 }
-
   TForm1 = class(TForm)
     btnClearTabMemo: TButton;
     btnCloseTab: TButton;
@@ -25,7 +24,7 @@ type
     PageControl1: TPageControl;
     PageControlConsole: TPageControl;
     ConsoleTab: TTabSheet;
-
+    FrameOptions: TFrameOptions;
 
     TabSingleVideo: TTabSheet;
 
@@ -46,6 +45,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
 
     procedure LoadTabs();
+    procedure PageControl1Change(Sender: TObject);
   end;
 
 var
@@ -120,6 +120,11 @@ begin
   VideosFrame.Align := alClient;
 
   TabSingleVideo.Free();
+
+end;
+
+procedure TForm1.PageControl1Change(Sender: TObject);
+begin
 
 end;
 
